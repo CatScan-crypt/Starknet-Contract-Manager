@@ -1,0 +1,24 @@
+{
+  "name": "starknet-contract-manager.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd FE && npm run dev",
+    "build": "cd FE && npm run build",
+    "lint": "cd FE && npm run lint",
+    "preview": "cd FE && npm run preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CatScan-crypt/Starknet-Contract-Manager..git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CatScan-crypt/Starknet-Contract-Manager./issues"
+  },
+  "homepage": "https://github.com/CatScan-crypt/Starknet-Contract-Manager.#readme",
+  "description": ""
+}
