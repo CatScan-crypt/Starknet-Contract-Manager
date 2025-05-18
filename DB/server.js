@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 // Test endpoint
 app.get('/', (req, res) => {
-  res.json({ message: 'Hello from the backend!' });
+  res.json({ message: 'Hello from the DB!' });
 });
 
 // Store deployment
