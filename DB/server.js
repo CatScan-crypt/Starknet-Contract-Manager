@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3001;
 app.use(bodyParser.json());
 
 // Test endpoint
-app.get('/api/hello', (req, res) => {
+app.get('/', (req, res) => {
   res.json({ message: 'Hello from the backend!' });
 });
 
