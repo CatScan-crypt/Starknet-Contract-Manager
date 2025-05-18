@@ -1,0 +1,85 @@
+📅 Day 1 – Ideation & Setup
+Goal: Finalize features, set up tooling, define MVP scope.
+
+⚙️ Environment Setup
+Cairo dev: Set up Starknet Foundry/Protostar/Openzepplin, start contract scaffolding.
+Backend: Set up Express boilerplate, plan to integrate Chipi SDK auth flow.
+Frontend: Create React project with apibara/starknet-react, basic layout with user flows (e.g., connect wallet, deploy contract), install Vite.
+📝 PM: Set up GitHub repo, and task board (Kanban), set up Vercel, choose and buy domain.
+
+✅ Milestone: Base repo, setups, feature plan, and skeleton code in place.
+-------------------------------------------------------------------------------
+🧠 Team Discussion & Feature Prioritization
+
+Decide on default features: mint/burn/tax/anti-bot.
+Define what’s customizable by the user at deployment time.
+
+Examples:
+https://algocryptodapp.github.io/Token-Factory/
+https://deploytokens.com/create-token/ethereum/
+https://quai-no-code-deployer.vercel.app/deploy-erc20
+https://www.smartcontracts.tools/token-generator/create/ethereum/
+https://www.createmytoken.com/token-builder/erc-20/ultimate-token/
+
+✅ 1. Welcome & Hackathon Context (5 min)
+Quick round of intros if needed
+Reiterate the Starknet Hackathon: Re{ignite} requirements
+Project must be built during the event
+Must include a 3-minute demo, a presentation, and a deployed dApp
+Must run on Starknet testnet and be open source
+
+
+🧠 2. Project Overview (10 min)
+PM or initiator gives a quick overview of the DeFi Contract Manager concept:
+What the dApp will do (deploy custom token contracts)
+Customizable features (mint/burn, tax, anti-bot)
+Key components (frontend, backend, smart contracts)
+
+
+🧩 3. Tech Stack Confirmation (10 min)
+Finalize tools, libraries, and frameworks:
+Smart Contracts: Cairo + Starknet Foundry / Protostar
+Frontend: React + Starknet.js + Chipi SDK
+Backend: Express (Node.js)
+DB: [To be decided – MongoDB / SQLite / Firebase?]
+
+
+🧪 4. Define MVP Scope (15 min)
+List and prioritize initial contract features:
+Mandatory: Mint, Burn, Initial Supply
+Optional (if time): Tax, Anti-bot, Blacklist
+Determine what must be completed for a functional demo
+
+
+👥 5. Roles & Responsibilities (10 min)
+Assign initial roles:
+Cairo Dev: Contract logic, deploy/testnet
+Backend Dev: API, DB, Chipi integration
+Frontend Dev: UI, wallet integration, deploy flow
+PM: GitHub repo, tracking tasks, submission deliverables
+
+
+📌 6. Dev Environment Setup Plan (10 min)
+Agree on how you'll:
+Share dev environment/setup steps
+Coordinate repo access and commit standards
+Use tools like GitHub Projects or Trello for task management
+
+
+📅 7. Next Steps & Milestones (10 min)
+Decide what each person will complete by the next sync:
+Cairo dev: Contract scaffold
+Backend dev: API endpoints and Chipi SDK setup
+Frontend dev: UI form and auth shell
+Schedule next meeting or daily sync time
+
+❓ 8. Open Q&A or Concerns (5 min)
+Discuss any potential blockers or uncertainties:
+Are there parts of Cairo or Chipi SDK that need ramp-up?
+Are we aligned on the demo video/presentation approach?
+
+📍 Outcome of the Meeting
+Clear MVP and feature priorities
+Tasks assigned to each team member
+Dev tools selected and repo initialized
+Everyone aligned on the next milestone

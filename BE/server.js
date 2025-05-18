@@ -1,16 +1,21 @@
-import express from 'express';
-
+const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Hello from the mock backend!' });
+app.get('/', (req, res) => {
+  res.send('Hello from Express on Railway!');
 });
 
-app.get('/', (req, res) => {
-  res.send('Mock Backend Server is running!');
+// Example API endpoint
+db = [
+  { id: 1, name: 'Test Token', supply: 1000 },
+  { id: 2, name: 'Sample Token', supply: 500 }
+];
+
+app.get('/api/tokens', (req, res) => {
+  res.json(db);
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Express server running on port ${PORT}`);
 });
