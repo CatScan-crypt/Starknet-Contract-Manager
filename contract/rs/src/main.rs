@@ -16,7 +16,7 @@ async fn main() {
 
         .route("/", get(root))
         .route("/complex", get(complex))
-        .route("/build-cairo", get(build_cairo))
+        .route("/build-cairo", get(build_cairo));
 
 
     let port: u16 = std::env::var("PORT")
@@ -51,7 +51,7 @@ async fn complex() -> impl IntoResponse {
 
 async fn build_cairo() -> impl IntoResponse {
 
-    let output = Command::new("./scarb/bin/scarb")
+    let output = Command::new("./app/scarb/bin/scarb")
         .arg("build")
         .output()
         .await;
