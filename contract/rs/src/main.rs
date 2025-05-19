@@ -16,7 +16,8 @@ async fn main() {
 
         .route("/", get(root))
         .route("/complex", get(complex))
-        .route("/build-cairo", get(build_cairo));
+        .route("/build-cairo", get(build_cairo))
+        .route("/list-target", get(list_target_files))
 
 
     let port: u16 = std::env::var("PORT")
@@ -74,6 +75,31 @@ async fn build_cairo() -> impl IntoResponse {
             StatusCode::INTERNAL_SERVER_ERROR,
             Json(serde_json::json!({
                 "error": format!("Failed to run scarb: {}", e)
+            }))
+        ),
+    }
+}
+
+async fn list_target_files() -> impl IntoResponse {
+    let target_path = "./target";
+
+    match tokio::fs::read_dir(target_path).await {
+        Ok(mut dir) => {
+            let mut files = Vec::new();
+            while let Ok(Some(entry)) = dir.next_entry().await {
+                if let Ok(file_name) = entry.file_name().into_string() {
+                    files.push(file_name);
+                }
+            }
+            (
+                StatusCode::OK,
+                Json(serde_json::json!({ "files": files }))
+            )
+        }
+        Err(e) => (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            Json(serde_json::json!({
+                "error": format!("Could not read target directory: {}", e)
             }))
         ),
     }
