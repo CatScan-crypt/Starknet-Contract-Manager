@@ -86,8 +86,8 @@ async fn list_target_files() -> impl IntoResponse {
     match fs::read_dir(target_path) {
         Ok(entries) => {
             let files: Vec<String> = entries
-                .filter_map(|entry| entry.ok())
-                .map(|entry| entry.file_name().to_string_lossy().to_string())
+                .filter_map(|entry| entry.ok());
+                .map(|entry| entry.file_name().to_string_lossy().to_string());
                 .collect();
 
             (
