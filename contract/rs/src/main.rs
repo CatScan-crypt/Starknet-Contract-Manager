@@ -1,3 +1,4 @@
+
 use axum::{http::StatusCode, response::IntoResponse, routing::get, Json, Router};
 use std::net::SocketAddr;
 use tokio::net::TcpListener;
@@ -39,10 +40,7 @@ async fn root() -> String {
 
 
 async fn build_cairo() -> impl IntoResponse {
-    match env::current_dir() {
-        Ok(path) => println!("Current working dir: {}", path.display()),
-        Err(e) => println!("Failed to get current dir: {}", e),
-    }
+
     let output = Command::new("./app/scarb/bin/scarb")
         .arg("build")
         .output()
@@ -53,21 +51,12 @@ async fn build_cairo() -> impl IntoResponse {
             let stdout = String::from_utf8_lossy(&output.stdout);
             let stderr = String::from_utf8_lossy(&output.stderr);
             let status = output.status.code().unwrap_or(-1);
-            // Get current dir and list files for debugging
-            let pwd = std::env::current_dir().map(|p| p.display().to_string()).unwrap_or_else(|_| "<failed to get pwd>".to_string());
-            let files = std::fs::read_dir("./")
-                .map(|entries| {
-                    entries.filter_map(|e| e.ok().map(|e| e.file_name().to_string_lossy().to_string())).collect::<Vec<_>>().join(", ")
-                })
-                .unwrap_or_else(|_| "<failed to list files>".to_string());
             (
                 StatusCode::OK,
                 Json(serde_json::json!({
                     "status": status,
                     "stdout": stdout,
-                    "stderr": stderr,
-                    "pwd": pwd,
-                    "files": files
+                    "stderr": stderr
                 }))
             )
         }
