@@ -1,2 +1,7 @@
 [phases.setup]
-nixPkgs = ["rustc", "cargo"]
+nixPkgs = ["rustc", "cargo", "musl", "musl-dev"]
+
+[phases.build]
+cmds = [
+  "rustup target add x86_64-unknown-linux-musl"
+]

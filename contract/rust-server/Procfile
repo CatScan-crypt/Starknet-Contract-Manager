@@ -1,1 +1,1 @@
-web: cargo run --release
+web: cargo run --release --target x86_64-unknown-linux-musl
