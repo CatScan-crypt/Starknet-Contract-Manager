@@ -1,32 +1,45 @@
-/// Interface representing `HelloContract`.
-/// This interface allows modification and retrieval of the contract balance.
-#[starknet::interface]
-pub trait IHelloStarknet<TContractState> {
-    /// Increase contract balance.
-    fn increase_balance(ref self: TContractState, amount: felt252);
-    /// Retrieve contract balance.
-    fn get_balance(self: @TContractState) -> felt252;
-}
-
-/// Simple contract for managing balance.
 #[starknet::contract]
-mod HelloStarknet {
-    use core::starknet::storage::{StoragePointerReadAccess, StoragePointerWriteAccess};
-
-    #[storage]
+ pub erc20_contract {
+    use openzeppelin_token::erc20::{ERC20Component, ERC20HooksEmptyImpl};
+    use starknet::ContractAddress;
+    component!(path: ERC20Component, storage: erc20, event: ERC20Event);
+    
+    
+#[storage]
     struct Storage {
-        balance: felt252,
+        #[substorage(v0)]
+        erc20: ERC20Component::Storage,
+        name: ByteArray,
+        symbol: ByteArray,
+        decimals: u8
     }
-
+    
+    #[constructor]
+    fn constructor(
+        ref self: ContractState,
+        account: ContractAddress,
+        name: ByteArray,
+        symbol: ByteArray,
+        fixed_supply: u256,
+        decimals: u8
+    ) {
+        self.name.write(name);
+        let name = self.name.read();
+        self.symbol.write(symbol);
+        let symbol = self.symbol.read();
+        self.decimals.write(decimals);
+        self.erc20.mint(account, fixed_supply);
+        self.erc20.initializer(name, symbol);
+    }
+    
+    #[event]   
+    #[derive(Drop, starknet::Event)]
+    enum Event {
+        #[flat]
+        ERC20Event: ERC20Component::Event
+    }
+   
     #[abi(embed_v0)]
-    impl HelloStarknetImpl of super::IHelloStarknet<ContractState> {
-        fn increase_balance(ref self: ContractState, amount: felt252) {
-            assert(amount != 0, 'Amount cannot be 0');
-            self.balance.write(self.balance.read() + amount);
-        }
-
-        fn get_balance(self: @ContractState) -> felt252 {
-            self.balance.read()
-        }
-    }
+    impl ERC20MixinImpl = ERC20Component::ERC20MixinImpl<ContractState>;
+    impl ERC20InternalImpl = ERC20Component::InternalImpl<ContractState>;
 }
