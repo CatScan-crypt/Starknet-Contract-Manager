@@ -40,9 +40,8 @@ async fn root() -> String {
 
 async fn build_cairo() -> impl IntoResponse {
     let cwd = env::current_dir().unwrap();
-    let output = Command::new("./scarb/bin/scarb")
+    let output = Command::new("./app/scarb/bin/scarb")
         .arg("build")
-        .current_dir("/")
         .output()
         .await;
 
