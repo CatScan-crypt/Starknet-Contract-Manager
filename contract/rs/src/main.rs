@@ -6,6 +6,7 @@ use axum::{http::StatusCode, response::IntoResponse, routing::get, Json, Router}
 use std::net::SocketAddr;
 use tokio::net::TcpListener;
 use tokio::process::Command;
+use std::env;
 
 // This derive macro allows our main function to run asyncrohnous code. Without it, the main function would run syncrohnously
 #[tokio::main]
@@ -58,8 +59,9 @@ async fn main() {
 // Make sure the function is `async`
 // We specify our return type, `&'static str`, however a route handler can return anything that implements `IntoResponse`
 
-async fn root() -> &'static str {
-    "Hello, World!"
+async fn root() -> String {
+    let cwd = env::current_dir().unwrap();
+    format!("Current working directory: {}", cwd.display())
 }
 
 // This is our route handler, for the route complex
