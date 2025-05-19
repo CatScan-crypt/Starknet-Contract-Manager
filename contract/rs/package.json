@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "bash install.sh && node server.js"
+    "start": "bash install.sh && node server.js",
+    "build": "bash install.sh"
   },
   "dependencies": {
     "express": "^4.18.2"
