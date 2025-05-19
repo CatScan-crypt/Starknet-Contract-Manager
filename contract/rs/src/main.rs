@@ -72,7 +72,7 @@ async fn build_cairo() -> impl IntoResponse {
 }
 
 async fn list_target_files() -> impl IntoResponse {
-    let dir_path = "./target";
+    let dir_path = "./app/target";
     match fs::read_dir(dir_path).await {
         Ok(mut entries) => {
             let mut files = Vec::new();
