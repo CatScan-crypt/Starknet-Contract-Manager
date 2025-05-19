@@ -88,7 +88,7 @@ async fn walk_dirs() -> impl IntoResponse {
 
     let steps = ["scarb", "bin"];
 
-    let mut current = Path::new(".");
+    let mut current = Path::new("./");
 
     for step in steps {
         current = current.join(step);
