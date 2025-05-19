@@ -37,7 +37,6 @@ async fn root() -> String {
     format!("Current working directory: {}", cwd.display())
 }
 
-
 async fn build_cairo() -> impl IntoResponse {
     let scarb_bin_path = "./app/scarb/bin";
     let path_var = std::env::var("PATH").unwrap_or_default();
