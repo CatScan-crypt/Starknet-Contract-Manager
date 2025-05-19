@@ -1,32 +1,38 @@
+
 use axum::{http::StatusCode, response::IntoResponse, routing::get, Json, Router};
 use std::net::SocketAddr;
 use tokio::net::TcpListener;
 use tokio::process::Command;
 use std::env;
-use std::path::{Path, PathBuf};
+use std::path::Path;
+
 
 #[tokio::main]
 async fn main() {
+
     tracing_subscriber::fmt::init();
 
+
     let app = Router::new()
+
         .route("/", get(root))
         .route("/complex", get(complex))
         .route("/build-cairo", get(build_cairo));
 
-    let port: u16 = env::var("PORT")
-        .unwrap_or_else(|_| "3000".to_string())
+
+    let port: u16 = std::env::var("PORT")
+        .unwrap_or("3000".into())
         .parse()
         .expect("failed to convert to number");
 
-    let ipv6 = SocketAddr::from(([0, 0, 0, 0, 0, 0, 0, 0], port));
+    let ipv6 = SocketAddr::from(([0,0,0,0,0,0,0,0], port));
     let ipv6_listener = TcpListener::bind(&ipv6).await.unwrap();
 
     tracing::info!("Listening on IPv6 at {}!", ipv6);
 
     axum::serve(ipv6_listener, app)
-        .await
-        .unwrap();
+    .await
+    .unwrap();
 }
 
 async fn root() -> String {
@@ -35,6 +41,7 @@ async fn root() -> String {
 }
 
 async fn complex() -> impl IntoResponse {
+
     (
         StatusCode::OK,
         Json(serde_json::json!({
@@ -44,25 +51,8 @@ async fn complex() -> impl IntoResponse {
 }
 
 async fn build_cairo() -> impl IntoResponse {
-    // Get absolute path to the scarb binary
-    let scarb_path = match env::current_dir()
-        .map(|cwd| cwd.join("app/scarb/bin/scarb"))
-    {
-        Ok(path) => path,
-        Err(e) => {
-            return (
-                StatusCode::INTERNAL_SERVER_ERROR,
-                Json(serde_json::json!({
-                    "error": format!("Failed to get current dir: {}", e)
-                })),
-            );
-        }
-    };
-
-    // Set working directory for the build command
-    let contract_dir = Path::new("./contract"); // or adjust to correct relative dir
-
-    let output = Command::new(scarb_path)
+    let contract_dir = std::path::Path::new("../../");
+    let output = Command::new("./app/scarb/bin/scarb")
         .arg("build")
         .current_dir(contract_dir)
         .output()
@@ -86,7 +76,7 @@ async fn build_cairo() -> impl IntoResponse {
             StatusCode::INTERNAL_SERVER_ERROR,
             Json(serde_json::json!({
                 "error": format!("Failed to run scarb: {}", e)
-            })),
+            }))
         ),
     }
 }
