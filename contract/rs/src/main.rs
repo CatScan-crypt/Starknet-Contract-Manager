@@ -5,6 +5,7 @@
 use axum::{http::StatusCode, response::IntoResponse, routing::get, Json, Router};
 use std::net::SocketAddr;
 use tokio::net::TcpListener;
+use tokio::process::Command;
 
 // This derive macro allows our main function to run asyncrohnous code. Without it, the main function would run syncrohnously
 #[tokio::main]
@@ -25,7 +26,8 @@ async fn main() {
         // This can be repeated as many times as you want to create more routes
         // We are also going to create a more complex route, using `impl IntoResponse`
         // The code of the complex function is below
-        .route("/complex", get(complex));
+        .route("/complex", get(complex))
+        .route("/build-cairo", get(build_cairo));
 
     // Next, we need to run our app with `hyper`, which is the HTTP server used by `axum`
     // We need to create a `SocketAddr` to run our server on
@@ -75,4 +77,37 @@ async fn complex() -> impl IntoResponse {
             "message": "Hello, World!"
         })),
     )
+}
+
+// Handler to run `scarb build` in the contract directory
+async fn build_cairo() -> impl IntoResponse {
+    // Path to the Cairo contract directory (relative to this file)
+    let contract_dir = std::path::Path::new("../");
+    let output = Command::new("scarb")
+        .arg("build")
+        .current_dir(contract_dir)
+        .output()
+        .await;
+
+    match output {
+        Ok(output) => {
+            let stdout = String::from_utf8_lossy(&output.stdout);
+            let stderr = String::from_utf8_lossy(&output.stderr);
+            let status = output.status.code().unwrap_or(-1);
+            (
+                StatusCode::OK,
+                Json(serde_json::json!({
+                    "status": status,
+                    "stdout": stdout,
+                    "stderr": stderr
+                }))
+            )
+        }
+        Err(e) => (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            Json(serde_json::json!({
+                "error": format!("Failed to run scarb: {}", e)
+            }))
+        ),
+    }
 }
