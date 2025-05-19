@@ -43,7 +43,7 @@ async fn root() -> String {
 
 async fn build_cairo() -> impl IntoResponse {
 
-    let output = Command::new("./scarb/bin/scarb")
+    let output = Command::new("./scarb/bin/cairo-compile")
         .arg("build")
         .output()
         .await;
