@@ -86,9 +86,15 @@ async fn list_target_files() -> impl IntoResponse {
                 Json(json!({ "files": files }))
             )
         }
-        Err(e) => (
-            StatusCode::INTERNAL_SERVER_ERROR,
-            Json(json!({ "error": format!("Failed to read directory: {}", e) }))
-        ),
+        Err(e) => {
+            let cwd = env::current_dir().map(|p| p.display().to_string()).unwrap_or_else(|_| "unknown".to_string());
+            (
+                StatusCode::INTERNAL_SERVER_ERROR,
+                Json(json!({
+                    "error": format!("Failed to read directory: {}", e),
+                    "cwd": cwd
+                }))
+            )
+        }
     }
 }
