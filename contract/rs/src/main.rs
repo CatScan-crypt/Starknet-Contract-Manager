@@ -16,7 +16,7 @@ async fn main() {
 
         .route("/", get(root))
         .route("/complex", get(complex))
-        .route("/build-cairo", get(build_cairo))
+        .route("/build-cairo", get(build_cairo));
 
 
     let port: u16 = std::env::var("PORT")
