@@ -39,6 +39,14 @@ async fn root() -> String {
 
 async fn build_cairo() -> impl IntoResponse {
     let scarb_bin_path = "./app/scarb/bin";
+    let scarb_path = format!("{}/scarb", scarb_bin_path);
+    // Ensure scarb is executable
+    let _ = tokio::process::Command::new("chmod")
+        .arg("+x")
+        .arg(&scarb_path)
+        .output()
+        .await;
+
     let path_var = std::env::var("PATH").unwrap_or_default();
     let new_path = format!("{}:{}", scarb_bin_path, path_var);
 
