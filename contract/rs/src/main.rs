@@ -42,7 +42,7 @@ async fn build_cairo() -> impl IntoResponse {
     // Change working directory to project root before running scarb
     let output = Command::new("./app/scarb/bin/scarb")
         .arg("build")
-        .current_dir("/root")
+        .current_dir("/")
         .output()
         .await;
 
