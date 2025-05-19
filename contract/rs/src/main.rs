@@ -1,4 +1,3 @@
-
 use axum::{http::StatusCode, response::IntoResponse, routing::get, Json, Router};
 use std::net::SocketAddr;
 use tokio::net::TcpListener;
@@ -40,9 +39,9 @@ async fn root() -> String {
 
 
 async fn build_cairo() -> impl IntoResponse {
-
-    let output = Command::new("scarb")
+    let output = Command::new("./app/scarb/bin/scarb")
         .arg("build")
+        .current_dir("/") // Change working directory to root
         .output()
         .await;
 
