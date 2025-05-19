@@ -86,7 +86,7 @@ async fn build_cairo() -> impl IntoResponse {
 async fn walk_dirs() -> impl IntoResponse {
     let mut result = String::new();
 
-    let steps = ["rs", "scarb", "bin"];
+    let steps = ["scarb", "bin"];
 
     let mut current = Path::new(".");
 
