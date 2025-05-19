@@ -1,5 +1,5 @@
 #[starknet::contract]
-  mod erc20 {
+  pub mod erc20 {
     use openzeppelin_token::erc20::{ERC20Component, ERC20HooksEmptyImpl};
     use starknet::ContractAddress;
     component!(path: ERC20Component, storage: erc20, event: ERC20Event);
@@ -10,7 +10,7 @@
     struct Storage {
         #[substorage(v0)]
         erc20: ERC20Component::Storage,
-        nameee: ByteArray,
+        name: ByteArray,
         symbol: ByteArray,
         decimals: u8,
     }
@@ -19,18 +19,18 @@
     fn constructor(
         ref self: ContractState,
         account: ContractAddress,
-        nameee: ByteArray,
+        name: ByteArray,
         symbol: ByteArray,
         fixed_supply: u256,
         decimals: u8,
     ) {
-        self.nameee.write(nameee);
-        let nameee = self.nameee.read();
+        self.name.write(name);
+        let name = self.name.read();
         self.symbol.write(symbol);
         let symbol = self.symbol.read();
         self.decimals.write(decimals);
         self.erc20.mint(account, fixed_supply);
-        self.erc20.initializer(nameee, symbol);
+        self.erc20.initializer(name, symbol);
     }
     
     #[event]   
