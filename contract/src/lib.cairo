@@ -1,7 +1,9 @@
 #[starknet::contract]
- pub erc20_contract {
+
+ pub mod erc20_contract {
     use openzeppelin_token::erc20::{ERC20Component, ERC20HooksEmptyImpl};
     use starknet::ContractAddress;
+    use starknet::storage::{ StoragePointerReadAccess, StoragePointerWriteAccess };
     component!(path: ERC20Component, storage: erc20, event: ERC20Event);
     
     
@@ -43,3 +45,4 @@
     impl ERC20MixinImpl = ERC20Component::ERC20MixinImpl<ContractState>;
     impl ERC20InternalImpl = ERC20Component::InternalImpl<ContractState>;
 }
+
