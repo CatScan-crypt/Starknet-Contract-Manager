@@ -4,7 +4,6 @@ use std::net::SocketAddr;
 use tokio::net::TcpListener;
 use tokio::process::Command;
 use std::env;
-use std::path::Path;
 
 #[tokio::main]
 async fn main() {
@@ -18,7 +17,7 @@ async fn main() {
 
         .route("/complex", get(complex))
         .route("/build-cairo", get(build_cairo));
-        .route("/path", get(walk_dirs));
+        .route("/path", get(build_cairo));
 
     let port: u16 = std::env::var("PORT")
         .unwrap_or("3000".into())
@@ -50,10 +49,8 @@ async fn complex() -> impl IntoResponse {
     )
 }
 
-// Handler to run `scarb build` in the contract directory
 async fn build_cairo() -> impl IntoResponse {
-    // Path to the Cairo contract directory (relative to this file)
-    let contract_dir = std::path::Path::new("./");
+    let contract_dir = std::path::Path::new("./contract");
     let output = Command::new("./app/scarb/bin/scarb")
         .arg("build")
         .current_dir(contract_dir)
@@ -83,25 +80,3 @@ async fn build_cairo() -> impl IntoResponse {
     }
 }
 
-async fn walk_dirs() -> impl IntoResponse {
-    let mut result = String::new();
-
-    let steps = ["scarb", "bin"];
-
-    let mut current = Path::new("./");
-
-    for step in steps {
-        current = current.join(step);
-        if env::set_current_dir(&current).is_ok() {
-            if let Ok(cwd) = env::current_dir() {
-                result.push_str(&format!("cd {}\n", step));
-                result.push_str(&format!("pwd -> {}\n\n", cwd.display()));
-            }
-        } else {
-            result.push_str(&format!("❌ Failed to cd into {}\n\n", current.display()));
-            break;
-        }
-    }
-
-    (StatusCode::OK, result)
-}
