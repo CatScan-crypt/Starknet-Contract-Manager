@@ -4,7 +4,7 @@ use std::net::SocketAddr;
 use tokio::net::TcpListener;
 use tokio::process::Command;
 use std::env;
-
+use std::fs;
 
 #[tokio::main]
 async fn main() {
@@ -83,14 +83,13 @@ async fn build_cairo() -> impl IntoResponse {
 async fn list_target_files() -> impl IntoResponse {
     let target_path = "./target";
 
-    match tokio::fs::read_dir(target_path).await {
-        Ok(mut dir) => {
-            let mut files = Vec::new();
-            while let Ok(Some(entry)) = dir.next_entry().await {
-                if let Ok(file_name) = entry.file_name().into_string() {
-                    files.push(file_name);
-                }
-            }
+    match fs::read_dir(target_path) {
+        Ok(entries) => {
+            let files: Vec<String> = entries
+                .filter_map(|entry| entry.ok())
+                .map(|entry| entry.file_name().to_string_lossy().to_string())
+                .collect();
+
             (
                 StatusCode::OK,
                 Json(serde_json::json!({ "files": files }))
@@ -99,7 +98,7 @@ async fn list_target_files() -> impl IntoResponse {
         Err(e) => (
             StatusCode::INTERNAL_SERVER_ERROR,
             Json(serde_json::json!({
-                "error": format!("Could not read target directory: {}", e)
+                "error": format!("Could not read directory {}: {}", target_path, e)
             }))
         ),
     }
