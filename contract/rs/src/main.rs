@@ -4,7 +4,6 @@ use std::net::SocketAddr;
 use tokio::net::TcpListener;
 use tokio::process::Command;
 use std::env;
-use std::path::Path;
 
 
 #[tokio::main]
@@ -51,10 +50,9 @@ async fn complex() -> impl IntoResponse {
 }
 
 async fn build_cairo() -> impl IntoResponse {
-    let contract_dir = std::path::Path::new("../../");
+
     let output = Command::new("./app/scarb/bin/scarb")
         .arg("build")
-        .current_dir(contract_dir)
         .output()
         .await;
 
