@@ -1,11 +1,6 @@
 # Railway configuration file
 
-# The build process
-[build]
-  # Build command
-  build_command = "bash install.sh"
 
-# The deploy process
 [deploy]
   # Start command to run your app
   start_command = "npm start"
