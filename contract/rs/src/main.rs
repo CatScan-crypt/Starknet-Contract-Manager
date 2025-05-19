@@ -85,7 +85,7 @@ async fn complex() -> impl IntoResponse {
 async fn build_cairo() -> impl IntoResponse {
     // Path to the Cairo contract directory (relative to this file)
     let contract_dir = std::path::Path::new("../../");
-    let output = Command::new("./app/rs/scarb/bin/scarb")
+    let output = Command::new("./app/scarb/bin/scarb")
         .arg("build")
         .current_dir(contract_dir)
         .output()
