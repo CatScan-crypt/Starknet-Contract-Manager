@@ -50,33 +50,38 @@ async fn complex() -> impl IntoResponse {
 }
 
 async fn build_cairo() -> impl IntoResponse {
-    let contract_dir = std::path::Path::new("./contract");
-    let output = Command::new("./app/scarb/bin/scarb")
-        .arg("build")
-        .current_dir(contract_dir)
+    let root_dir = std::path::Path::new("./app/scarb");
+
+    // Step 1: cd into ./app/scarb and run pwd
+    let pwd1 = Command::new("pwd")
+        .current_dir(root_dir)
         .output()
         .await;
 
-    match output {
-        Ok(output) => {
-            let stdout = String::from_utf8_lossy(&output.stdout);
-            let stderr = String::from_utf8_lossy(&output.stderr);
-            let status = output.status.code().unwrap_or(-1);
+    // Step 2: cd into ./app/scarb/bin and run pwd
+    let bin_dir = root_dir.join("bin");
+    let pwd2 = Command::new("pwd")
+        .current_dir(&bin_dir)
+        .output()
+        .await;
+
+    match (pwd1, pwd2) {
+        (Ok(out1), Ok(out2)) => {
+            let stdout1 = String::from_utf8_lossy(&out1.stdout);
+            let stdout2 = String::from_utf8_lossy(&out2.stdout);
             (
                 StatusCode::OK,
                 Json(serde_json::json!({
-                    "status": status,
-                    "stdout": stdout,
-                    "stderr": stderr
+                    "scarb_pwd": stdout1.trim(),
+                    "bin_pwd": stdout2.trim()
                 }))
             )
         }
-        Err(e) => (
+        _ => (
             StatusCode::INTERNAL_SERVER_ERROR,
             Json(serde_json::json!({
-                "error": format!("Failed to run scarb: {}", e)
+                "error": "Failed to get directory paths"
             }))
         ),
     }
 }
-
