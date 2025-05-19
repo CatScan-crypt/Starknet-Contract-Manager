@@ -72,27 +72,41 @@ async fn build_cairo() -> impl IntoResponse {
 }
 
 async fn list_target_files() -> impl IntoResponse {
-    let dir_path = "./app/target";
+    let cwd = match env::current_dir() {
+        Ok(path) => path,
+        Err(e) => {
+            return (
+                StatusCode::INTERNAL_SERVER_ERROR,
+                Json(json!({
+                    "error": format!("Failed to get current directory: {}", e)
+                }))
+            );
+        }
+    };
+    let dir_path = cwd.as_path();
     match fs::read_dir(dir_path).await {
         Ok(mut entries) => {
-            let mut files = Vec::new();
+            let mut items = Vec::new();
             while let Ok(Some(entry)) = entries.next_entry().await {
-                if let Ok(file_name) = entry.file_name().into_string() {
-                    files.push(file_name);
-                }
+                let file_type = entry.file_type().await.ok();
+                let name = entry.file_name().into_string().unwrap_or_default();
+                let is_dir = file_type.map(|ft| ft.is_dir()).unwrap_or(false);
+                items.push(json!({
+                    "name": name,
+                    "is_dir": is_dir
+                }));
             }
             (
                 StatusCode::OK,
-                Json(json!({ "files": files }))
+                Json(json!({ "cwd": cwd.display().to_string(), "items": items }))
             )
         }
         Err(e) => {
-            let cwd = env::current_dir().map(|p| p.display().to_string()).unwrap_or_else(|_| "unknown".to_string());
             (
                 StatusCode::INTERNAL_SERVER_ERROR,
                 Json(json!({
                     "error": format!("Failed to read directory: {}", e),
-                    "cwd": cwd
+                    "cwd": cwd.display().to_string()
                 }))
             )
         }
