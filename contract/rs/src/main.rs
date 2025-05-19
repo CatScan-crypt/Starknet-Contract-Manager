@@ -39,8 +39,8 @@ async fn root() -> String {
 
 
 async fn build_cairo() -> impl IntoResponse {
-    // Change working directory to project root before running scarb
-    let output = Command::new("./app/scarb/bin/scarb")
+    let cwd = env::current_dir().unwrap();
+    let output = Command::new("./scarb/bin/scarb")
         .arg("build")
         .current_dir("/")
         .output()
@@ -53,7 +53,7 @@ async fn build_cairo() -> impl IntoResponse {
             let status = output.status.code().unwrap_or(-1);
             // Get current dir and list files for debugging
             let pwd = std::env::current_dir().map(|p| p.display().to_string()).unwrap_or_else(|_| "<failed to get pwd>".to_string());
-            let files = std::fs::read_dir("/root/hackathon/Starknet-Contract-Manager/contract")
+            let files = std::fs::read_dir("/root")
                 .map(|entries| {
                     entries.filter_map(|e| e.ok().map(|e| e.file_name().to_string_lossy().to_string())).collect::<Vec<_>>().join(", ")
                 })
