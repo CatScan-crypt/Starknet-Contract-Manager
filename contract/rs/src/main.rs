@@ -15,7 +15,6 @@ async fn main() {
     let app = Router::new()
 
         .route("/", get(root))
-        .route("/complex", get(complex))
         .route("/build-cairo", get(build_cairo));
 
 
@@ -39,15 +38,6 @@ async fn root() -> String {
     format!("Current working directory: {}", cwd.display())
 }
 
-async fn complex() -> impl IntoResponse {
-
-    (
-        StatusCode::OK,
-        Json(serde_json::json!({
-            "message": "Hello, World!"
-        })),
-    )
-}
 
 async fn build_cairo() -> impl IntoResponse {
 
