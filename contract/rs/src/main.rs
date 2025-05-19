@@ -5,6 +5,7 @@ use tokio::net::TcpListener;
 use tokio::process::Command;
 use std::env;
 use std::fs;
+use std::path::PathBuf;
 
 #[tokio::main]
 async fn main() {
@@ -17,7 +18,6 @@ async fn main() {
         .route("/", get(root))
         .route("/complex", get(complex))
         .route("/build-cairo", get(build_cairo))
-        .route("/list-target", get(list_target_files))
 
 
     let port: u16 = std::env::var("PORT")
@@ -35,9 +35,22 @@ async fn main() {
     .unwrap();
 }
 
-async fn root() -> String {
+async fn root() -> impl IntoResponse {
     let cwd = env::current_dir().unwrap();
-    format!("Current working directory: {}", cwd.display())
+    let target_path = cwd.join("target");
+
+    match fs::read_dir(&target_path) {
+        Ok(entries) => {
+            let mut files = Vec::new();
+            for entry in entries.flatten() {
+                let file_name = entry.file_name().into_string().unwrap_or_default();
+                files.push(file_name);
+            }
+            let file_list = files.join(", ");
+            format!("Contents of target folder at {}:\n{}", target_path.display(), file_list)
+        }
+        Err(e) => format!("Could not read target folder at {}: {}", target_path.display(), e),
+    }
 }
 
 async fn complex() -> impl IntoResponse {
@@ -80,26 +93,3 @@ async fn build_cairo() -> impl IntoResponse {
     }
 }
 
-async fn list_target_files() -> impl IntoResponse {
-    let target_path = "./target";
-
-    match fs::read_dir(target_path) {
-        Ok(entries) => {
-            let files: Vec<String> = entries
-                .filter_map(|entry| entry.ok());
-                .map(|entry| entry.file_name().to_string_lossy().to_string());
-                .collect();
-
-            (
-                StatusCode::OK,
-                Json(serde_json::json!({ "files": files }))
-            )
-        }
-        Err(e) => (
-            StatusCode::INTERNAL_SERVER_ERROR,
-            Json(serde_json::json!({
-                "error": format!("Could not read directory {}: {}", target_path, e)
-            }))
-        ),
-    }
-}
