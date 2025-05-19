@@ -1,4 +1,3 @@
-
 use axum::{http::StatusCode, response::IntoResponse, routing::get, Json, Router};
 use std::net::SocketAddr;
 use tokio::net::TcpListener;
@@ -40,9 +39,13 @@ async fn root() -> String {
 
 
 async fn build_cairo() -> impl IntoResponse {
+    let scarb_bin_path = "./app/scarb/bin";
+    let path_var = std::env::var("PATH").unwrap_or_default();
+    let new_path = format!("{}:{}", scarb_bin_path, path_var);
 
-    let output = Command::new("./app/scarb/bin/scarb")
+    let output = Command::new("scarb")
         .arg("build")
+        .env("PATH", new_path)
         .output()
         .await;
 
