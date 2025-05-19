@@ -39,10 +39,9 @@ async fn root() -> String {
 
 
 async fn build_cairo() -> impl IntoResponse {
-    let output = Command::new("cairo-compile")
+    let output = Command::new("./cairo-compile")
         .arg("--single-file")
         .arg("src/lib.cairo")
-        .arg("--output")
         .arg("output.sierra")
         .arg("--replace-ids")
         .output()
