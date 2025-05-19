@@ -1,9 +1,10 @@
-
 use axum::{http::StatusCode, response::IntoResponse, routing::get, Json, Router};
 use std::net::SocketAddr;
 use tokio::net::TcpListener;
 use tokio::process::Command;
 use std::env;
+use tokio::fs;
+use serde_json::json;
 
 
 #[tokio::main]
@@ -15,7 +16,8 @@ async fn main() {
     let app = Router::new()
 
         .route("/", get(root))
-        .route("/build-cairo", get(build_cairo));
+        .route("/build-cairo", get(build_cairo))
+        .route("/list-target-files", get(list_target_files));
 
 
     let port: u16 = std::env::var("PORT")
@@ -65,6 +67,28 @@ async fn build_cairo() -> impl IntoResponse {
             Json(serde_json::json!({
                 "error": format!("Failed to run scarb: {}", e)
             }))
+        ),
+    }
+}
+
+async fn list_target_files() -> impl IntoResponse {
+    let dir_path = "./target";
+    match fs::read_dir(dir_path).await {
+        Ok(mut entries) => {
+            let mut files = Vec::new();
+            while let Ok(Some(entry)) = entries.next_entry().await {
+                if let Ok(file_name) = entry.file_name().into_string() {
+                    files.push(file_name);
+                }
+            }
+            (
+                StatusCode::OK,
+                Json(json!({ "files": files }))
+            )
+        }
+        Err(e) => (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            Json(json!({ "error": format!("Failed to read directory: {}", e) }))
         ),
     }
 }
