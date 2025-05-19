@@ -5,7 +5,6 @@ use tokio::net::TcpListener;
 use tokio::process::Command;
 use std::env;
 use std::fs;
-use std::path::PathBuf;
 
 #[tokio::main]
 async fn main() {
@@ -15,9 +14,9 @@ async fn main() {
 
     let app = Router::new()
 
-        .route("/", get(root));
-        .route("/complex", get(complex));
-        .route("/build-cairo", get(build_cairo));
+        .route("/", get(root))
+        .route("/complex", get(complex))
+        .route("/build-cairo", get(build_cairo))
 
 
     let port: u16 = std::env::var("PORT")
