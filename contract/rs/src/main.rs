@@ -3,8 +3,6 @@ use std::net::SocketAddr;
 use tokio::net::TcpListener;
 use tokio::process::Command;
 use std::env;
-use tokio::fs;
-use serde_json::json;
 
 
 #[tokio::main]
@@ -16,8 +14,7 @@ async fn main() {
     let app = Router::new()
 
         .route("/", get(root))
-        .route("/build-cairo", get(build_cairo))
-        .route("/list-target-files", get(list_target_files));
+        .route("/build-cairo", get(build_cairo));
 
 
     let port: u16 = std::env::var("PORT")
@@ -42,9 +39,12 @@ async fn root() -> String {
 
 
 async fn build_cairo() -> impl IntoResponse {
-
-    let output = Command::new("cairo-compile --single-file /src/lib.cairo /output.sierra --replace-ids")
-        .arg("build")
+    let output = Command::new("cairo-compile")
+        .arg("--single-file")
+        .arg("src/lib.cairo")
+        .arg("--output")
+        .arg("output.sierra")
+        .arg("--replace-ids")
         .output()
         .await;
 
@@ -65,50 +65,8 @@ async fn build_cairo() -> impl IntoResponse {
         Err(e) => (
             StatusCode::INTERNAL_SERVER_ERROR,
             Json(serde_json::json!({
-                "error": format!("Failed to run scarb: {}", e)
+                "error": format!("Failed to run cairo-compile: {}", e)
             }))
         ),
-    }
-}
-
-async fn list_target_files() -> impl IntoResponse {
-    let cwd = match env::current_dir() {
-        Ok(path) => path,
-        Err(e) => {
-            return (
-                StatusCode::INTERNAL_SERVER_ERROR,
-                Json(json!({
-                    "error": format!("Failed to get current directory: {}", e)
-                }))
-            );
-        }
-    };
-    let dir_path = cwd.as_path();
-    match fs::read_dir(dir_path).await {
-        Ok(mut entries) => {
-            let mut items = Vec::new();
-            while let Ok(Some(entry)) = entries.next_entry().await {
-                let file_type = entry.file_type().await.ok();
-                let name = entry.file_name().into_string().unwrap_or_default();
-                let is_dir = file_type.map(|ft| ft.is_dir()).unwrap_or(false);
-                items.push(json!({
-                    "name": name,
-                    "is_dir": is_dir
-                }));
-            }
-            (
-                StatusCode::OK,
-                Json(json!({ "cwd": cwd.display().to_string(), "items": items }))
-            )
-        }
-        Err(e) => {
-            (
-                StatusCode::INTERNAL_SERVER_ERROR,
-                Json(json!({
-                    "error": format!("Failed to read directory: {}", e),
-                    "cwd": cwd.display().to_string()
-                }))
-            )
-        }
     }
 }
