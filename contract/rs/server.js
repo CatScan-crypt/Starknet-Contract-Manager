@@ -20,7 +20,7 @@ app.get('/version', ( req,res) => {
 });
 
 app.get('/mp', ( req,res) => {
-  exec('mise exec scarb@2.8.4 --command "scarb manifest-path', (err, stdout, stderr) => {
+  exec('mise exec scarb@2.8.4 --command "scarb manifest-path"', (err, stdout, stderr) => {
     if (err) {
       return res.status(500).json({ error: stderr });
     }
@@ -29,13 +29,23 @@ app.get('/mp', ( req,res) => {
 });
 
 app.get('/md', ( req,res) => {
-  exec('mise exec scarb@2.8.4 --command "scarb metadata', (err, stdout, stderr) => {
+  exec('mise exec scarb@2.8.4 --command "scarb metadata"', (err, stdout, stderr) => {
     if (err) {
       return res.status(500).json({ error: stderr });
     }
     res.json({ version: stdout.trim() });
   });
 });
+
+app.get('/build', ( req,res) => {
+  exec('mise exec scarb@2.8.4 --command "scarb build"', (err, stdout, stderr) => {
+    if (err) {
+      return res.status(500).json({ error: stderr });
+    }
+    res.json({ version: stdout.trim() });
+  });
+});
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
