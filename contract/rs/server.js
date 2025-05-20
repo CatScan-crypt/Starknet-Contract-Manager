@@ -41,8 +41,8 @@ app.post('/build', (req, res) => {
   });
 });
 
-app.get('/snf', (req, res) => {
-  exec('mise exec starknet-foundry@0.33.0  --command "snforge"', (err, stdout, stderr) => {
+app.post('/snf', (req, res) => {
+  exec('mise exec starknet-foundry@0.33.0  --command "snforge "', (err, stdout, stderr) => {
     if (err) {
       return res.status(500).json({
         error: stderr.trim() || err.message || 'Unknown error',
@@ -54,8 +54,8 @@ app.get('/snf', (req, res) => {
   });
 });
 
-app.get('/snc', (req, res) => {
-  exec('mise exec starknet-foundry@0.33.0  --command "sncast"', (err, stdout, stderr) => {
+app.post('/snc', (req, res) => {
+  exec('mise exec starknet-foundry@0.33.0  --command "sncast -V "', (err, stdout, stderr) => {
     if (err) {
       return res.status(500).json({
         error: stderr.trim() || err.message || 'Unknown error',
