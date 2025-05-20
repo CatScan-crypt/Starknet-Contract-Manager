@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
 });
 
 // ✅ Scarb version route
-app.post('/version', ( res) => {
+app.get('/version', ( res) => {
   exec('scarb --version', (err, stdout, stderr) => {
     if (err) {
       return res.status(500).json({ error: stderr });
