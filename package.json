@@ -20,5 +20,8 @@
     "url": "https://github.com/CatScan-crypt/Starknet-Contract-Manager./issues"
   },
   "homepage": "https://github.com/CatScan-crypt/Starknet-Contract-Manager.#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "morgan": "^1.10.0"
+  }
 }

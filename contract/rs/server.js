@@ -29,7 +29,20 @@ app.get('/mp', ( req,res) => {
 });
 
 app.post('/build', (req, res) => {
-  exec('mise exec scarb@2.8.4 -- scarb build -V', (err, stdout, stderr) => {
+  exec('mise exec scarb@2.8.4 -- scarb build', (err, stdout, stderr) => {
+    if (err) {
+      return res.status(500).json({
+        error: stderr.trim() || err.message || 'Unknown error',
+        code: err.code,
+        signal: err.signal
+      });
+    }
+    res.json({ output: stdout.trim() });
+  });
+});
+
+app.post('/buildv', (req, res) => {
+  exec('mise exec scarb@2.8.4 --command "scarb build -v"', (err, stdout, stderr) => {
     if (err) {
       return res.status(500).json({
         error: stderr.trim() || err.message || 'Unknown error',
