@@ -41,8 +41,21 @@ app.post('/build', (req, res) => {
   });
 });
 
-app.post('/buildv', (req, res) => {
-  exec('mise exec scarb@2.8.4 --command "scarb build -v"', (err, stdout, stderr) => {
+app.get('/snf', (req, res) => {
+  exec('mise exec starknet-foundry@0.33.0  --command "snforge"', (err, stdout, stderr) => {
+    if (err) {
+      return res.status(500).json({
+        error: stderr.trim() || err.message || 'Unknown error',
+        code: err.code,
+        signal: err.signal
+      });
+    }
+    res.json({ output: stdout.trim() });
+  });
+});
+
+app.post('/snc', (req, res) => {
+  exec('mise exec starknet-foundry@0.33.0  --command "sncast"', (err, stdout, stderr) => {
     if (err) {
       return res.status(500).json({
         error: stderr.trim() || err.message || 'Unknown error',
