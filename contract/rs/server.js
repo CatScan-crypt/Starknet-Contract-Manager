@@ -68,7 +68,7 @@ app.post('/snc', (req, res) => {
 });
 
 app.post('/test', (req, res) => {
-  exec('mise exec scarb@2.8.4 -- scarb test', (err, stdout, stderr) => {
+  exec('mise exec starknet-foundry@0.33.0 -- snforge test', (err, stdout, stderr) => {
     if (err) {
       return res.status(500).json({
         error: stderr.trim() || err.message || 'Unknown error',
