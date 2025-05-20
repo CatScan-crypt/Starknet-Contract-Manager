@@ -80,6 +80,32 @@ app.post('/test', (req, res) => {
   });
 });
 
+app.post('/globalsn', (req, res) => {
+  exec('mise use -g starknet-foundry@0.33.0', (err, stdout, stderr) => {
+    if (err) {
+      return res.status(500).json({
+        error: stderr.trim() || err.message || 'Unknown error',
+        code: err.code,
+        signal: err.signal
+      });
+    }
+    res.json({ output: stdout.trim() });
+  });
+});
+
+app.post('/globals', (req, res) => {
+  exec('mise use -g scarb@2.8.4', (err, stdout, stderr) => {
+    if (err) {
+      return res.status(500).json({
+        error: stderr.trim() || err.message || 'Unknown error',
+        code: err.code,
+        signal: err.signal
+      });
+    }
+    res.json({ output: stdout.trim() });
+  });
+});
+
 app.post('/update', (req, res) => {
   exec('mise exec scarb@2.8.4 -- scarb update', (err, stdout, stderr) => {
     if (err) {
