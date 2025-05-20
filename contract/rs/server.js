@@ -29,7 +29,7 @@ app.get('/mp', ( req,res) => {
 });
 
 app.post('/build', (req, res) => {
-  exec('mise exec scarb@2.8.4 -- scarb build', (err, stdout, stderr) => {
+  exec('mise exec scarb@2.8.4 starknet-foundry@0.33.0 --command "scarb build" ', (err, stdout, stderr) => {
     if (err) {
       return res.status(500).json({
         error: stderr.trim() || err.message || 'Unknown error',
@@ -54,7 +54,7 @@ app.get('/snf', (req, res) => {
   });
 });
 
-app.post('/snc', (req, res) => {
+app.get('/snc', (req, res) => {
   exec('mise exec starknet-foundry@0.33.0  --command "sncast"', (err, stdout, stderr) => {
     if (err) {
       return res.status(500).json({
