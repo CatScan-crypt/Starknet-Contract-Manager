@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
 
 
 app.get('/version', ( req,res) => {
-  exec('mise exec scarb@2.8.4 --command "scarb --version"', (err, stdout, stderr) => {
+  exec('mise exec scarb@2.8.4 -- scarb --version', (err, stdout, stderr) => {
     if (err) {
       return res.status(500).json({ error: stderr });
     }
@@ -20,7 +20,7 @@ app.get('/version', ( req,res) => {
 });
 
 app.get('/mp', ( req,res) => {
-  exec('mise exec scarb@2.8.4 --command "scarb manifest-path"', (err, stdout, stderr) => {
+  exec('mise exec scarb@2.8.4 -- scarb manifest-path', (err, stdout, stderr) => {
     if (err) {
       return res.status(500).json({ error: stderr });
     }
@@ -28,8 +28,34 @@ app.get('/mp', ( req,res) => {
   });
 });
 
-app.get('/build', (req, res) => {
-  exec('mise exec scarb@2.8.4 --command "scarb build"', (err, stdout, stderr) => {
+app.post('/build', (req, res) => {
+  exec('mise exec scarb@2.8.4 -- scrab scarb build', (err, stdout, stderr) => {
+    if (err) {
+      return res.status(500).json({
+        error: stderr.trim() || err.message || 'Unknown error',
+        code: err.code,
+        signal: err.signal
+      });
+    }
+    res.json({ output: stdout.trim() });
+  });
+});
+
+app.post('/test', (req, res) => {
+  exec('mise exec scarb@2.8.4 -- scarb test', (err, stdout, stderr) => {
+    if (err) {
+      return res.status(500).json({
+        error: stderr.trim() || err.message || 'Unknown error',
+        code: err.code,
+        signal: err.signal
+      });
+    }
+    res.json({ output: stdout.trim() });
+  });
+});
+
+app.post('/update', (req, res) => {
+  exec('mise exec scarb@2.8.4 -- scarb update', (err, stdout, stderr) => {
     if (err) {
       return res.status(500).json({
         error: stderr.trim() || err.message || 'Unknown error',
