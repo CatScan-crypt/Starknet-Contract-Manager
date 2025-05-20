@@ -5,11 +5,17 @@ const app = express();
 
 app.use(express.json());
 
-app.post('/compile', (req, res) => {
+// ✅ Hello World route
+app.get('/', (req, res) => {
+  res.send('Hello, world!');
+});
+
+// Existing compile route
+app.get('/scarb', (req, res) => {
   const code = req.body.code;
   fs.writeFileSync('main.cairo', code);
 
-  exec('scarb build', (err, stdout, stderr) => {
+  exec('scarb --version', (err, stdout, stderr) => {
     if (err) {
       return res.status(500).json({ error: stderr });
     }
