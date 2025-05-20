@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
 
 // ✅ Scarb version route
 app.get('/version', ( req,res) => {
-exec('mise exec scarb -- --version', (err, stdout, stderr) => {
+exec('mise exec scarb@2.8.4 -- --version', (err, stdout, stderr) => {
   if (err) {
     return res.status(500).json({ error: stderr });
   }
