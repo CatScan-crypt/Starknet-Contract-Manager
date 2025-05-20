@@ -28,8 +28,8 @@ app.get('/mp', ( req,res) => {
   });
 });
 
-app.post('/build', (req, res) => {
-  exec('mise exec scarb@2.8.4 -- scarb build', (err, stdout, stderr) => {
+app.get('/build', (req, res) => {
+  exec('mise exec scarb@2.8.4 --command "scarb build"', (err, stdout, stderr) => {
     if (err) {
       return res.status(500).json({
         error: stderr.trim() || err.message || 'Unknown error',
