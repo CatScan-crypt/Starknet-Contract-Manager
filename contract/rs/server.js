@@ -120,7 +120,20 @@ app.post('/update', (req, res) => {
 });
 
 app.post('/fetch', (req, res) => {
-  exec('mise exec scarb@2.8.4 -- scarb fetch', (err, stdout, stderr) => {
+  exec('mise exec scarb@2.8.4 --command "scarb fetch" ', (err, stdout, stderr) => {
+    if (err) {
+      return res.status(500).json({
+        error: stderr.trim() || err.message || 'Unknown error',
+        code: err.code,
+        signal: err.signal
+      });
+    }
+    res.json({ output: stdout.trim() });
+  });
+});
+
+app.post('/commands', (req, res) => {
+  exec('mise exec scarb@2.8.4 --command "scarb commands" ', (err, stdout, stderr) => {
     if (err) {
       return res.status(500).json({
         error: stderr.trim() || err.message || 'Unknown error',
