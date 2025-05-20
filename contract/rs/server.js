@@ -28,21 +28,16 @@ app.get('/mp', ( req,res) => {
   });
 });
 
-app.get('/md', ( req,res) => {
-  exec('mise exec scarb@2.8.4 --command "scarb metadata"', (err, stdout, stderr) => {
-    if (err) {
-      return res.status(500).json({ error: stderr });
-    }
-    res.json({ version: stdout.trim() });
-  });
-});
-
-app.get('/build', ( req,res) => {
+app.post('/build', (req, res) => {
   exec('mise exec scarb@2.8.4 --command "scarb build"', (err, stdout, stderr) => {
     if (err) {
-      return res.status(500).json({ error: stderr });
+      return res.status(500).json({
+        error: stderr.trim() || err.message || 'Unknown error',
+        code: err.code,
+        signal: err.signal
+      });
     }
-    res.json({ version: stdout.trim() });
+    res.json({ output: stdout.trim() });
   });
 });
 
