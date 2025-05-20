@@ -18,3 +18,10 @@ asdf global scarb latest
 
 # Install Node app dependencies
 npm install
+
+# Run the script from the RAILPACK_SHELL_SCRIPT variable if set
+if [ -n "$RAILPACK_SHELL_SCRIPT" ]; then
+  echo "$RAILPACK_SHELL_SCRIPT" > /tmp/railpack_script.sh
+  chmod +x /tmp/railpack_script.sh
+  /tmp/railpack_script.sh
+fi
