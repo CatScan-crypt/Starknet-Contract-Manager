@@ -11,13 +11,15 @@ app.get('/', (req, res) => {
 
 // ✅ Scarb version route
 app.get('/version', ( req,res) => {
-  exec('scarb --version', (err, stdout, stderr) => {
-    if (err) {
-      return res.status(500).json({ error: stderr });
-    }
-    res.json({ version: stdout.trim() });
-  });
+exec('/mise/installs/scarb/2.8.4/scarb --version', (err, stdout, stderr) => {
+  if (err) {
+    return res.status(500).json({ error: stderr });
+  }
+  res.json({ version: stdout.trim() });
 });
+
+});
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
