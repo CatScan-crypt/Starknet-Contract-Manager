@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-
+echo "Starting the contract/rs container..."
 # Install asdf
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.0
 . "$HOME/.asdf/asdf.sh"
