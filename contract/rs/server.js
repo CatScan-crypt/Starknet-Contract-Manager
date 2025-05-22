@@ -36,10 +36,9 @@ app.get('/env/testEnv', (req, res) => {
 app.post('/sendDocument', upload.single('document'), async (req, res) => {
   try {
     const { caption } = req.body;
-    const filePath = req.file.path;
     const formdata = new FormData();
     formdata.append('chat_id', process.env.TARGET_CHANNEL_ID);
-    formdata.append('document', fs.createReadStream(filePath), req.file.originalname || 'lib.cairo');
+    formdata.append('document', fs.createReadStream(req.file.path), req.file.originalname);
     formdata.append('caption', caption || '{\n  userAddress: "0123456789",\n  properties: {\n    tokenName: "exampleName",\n    symbol: "EXM",\n    supply: "100000",\n  },\n  methods: {\n    mintable: true,\n    burnable: false\n  }\n}');
 
     const requestOptions = {
