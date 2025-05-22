@@ -3,6 +3,10 @@ const { exec } = require('child_process');
 const app = express();
 const fs = require('fs');
 const path = require('path');
+const multer = require('multer');
+const FormData = require('form-data');
+const fetch = require('node-fetch');
+const upload = multer({ dest: 'uploads/' });
 app.use(express.json());
 
 
@@ -29,7 +33,29 @@ app.get('/env/testEnv', (req, res) => {
   res.json({ testEnv });
 });
 
+app.post('/sendDocument', upload.single('document'), async (req, res) => {
+  try {
+    const { caption } = req.body;
+    const filePath = req.file.path;
+    const formdata = new FormData();
+    formdata.append('chat_id', process.env.TARGET_CHANNEL_ID);
+    formdata.append('document', fs.createReadStream(filePath), req.file.originalname || 'lib.cairo');
+    formdata.append('caption', caption || '{\n  userAddress: "0123456789",\n  properties: {\n    tokenName: "exampleName",\n    symbol: "EXM",\n    supply: "100000",\n  },\n  methods: {\n    mintable: true,\n    burnable: false\n  }\n}');
 
+    const requestOptions = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow',
+      headers: formdata.getHeaders()
+    };
+
+    const response = await fetch(`https://api.telegram.org/bot${process.env.token}/sendDocument`, requestOptions);
+    const result = await response.text();
+    res.json({ result });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
