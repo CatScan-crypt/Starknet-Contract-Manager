@@ -1,5 +1,11 @@
-target
+
 .snfoundry_cache/
 snfoundry_trace/
 coverage/
-profile/
+profile/        
+node_modules/
+bot.js
+logContent.js       
+.env    
+uploads/
+123

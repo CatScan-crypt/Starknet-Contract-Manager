@@ -7,7 +7,8 @@
     "start": "cd FE && npm run dev",
     "build": "cd FE && npm run build",
     "lint": "cd FE && npm run lint",
-    "preview": "cd FE && npm run preview"
+    "preview": "cd FE && npm run preview",
+    "deploy": " ts-node contract/scripts/deploy.ts"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,19 @@
     "url": "https://github.com/CatScan-crypt/Starknet-Contract-Manager./issues"
   },
   "homepage": "https://github.com/CatScan-crypt/Starknet-Contract-Manager.#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "form-data": "^4.0.2",
+    "morgan": "^1.10.0",
+    "multer": "^2.0.0",
+    "node-fetch": "^3.3.2",
+    "@tsconfig/node21": "21.0.3",
+    "dotenv": "16.4.5",
+    "express": "^4.21.2",
+    "starknet": "6.11.0",
+    "ts-node": "10.9.2",
+    "tslib": "2.8.1",
+    "typescript": "5.5.4"
+  }
 }
+

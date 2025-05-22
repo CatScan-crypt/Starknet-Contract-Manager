@@ -1,0 +1,1 @@
+{"version":1,"contracts":[{"id":"6te96p9gnkqdu","package_name":"boilerplate","contract_name":"erc20_contract","module_path":"boilerplate::mintable::erc20_contract","artifacts":{"sierra":"boilerplate_erc20_contract.contract_class.json","casm":"boilerplate_erc20_contract.compiled_contract_class.json"}}]}

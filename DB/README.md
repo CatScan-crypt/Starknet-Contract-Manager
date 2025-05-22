@@ -46,7 +46,7 @@ Update .env with your PostgreSQL credentials.
 node server.js
 ```
 
-By default, it runs on http://localhost:3000
+By default, it runs on http://localhost:3001
 
 ## API Endpoints
 
