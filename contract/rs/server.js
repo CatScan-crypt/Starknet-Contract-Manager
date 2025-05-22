@@ -5,9 +5,8 @@ const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 const FormData = require('form-data');
-const fetch = require('node-fetch');
-const upload = multer({ dest: 'uploads/' });
 app.use(express.json());
+const upload = multer({ dest: 'uploads/' });
 
 
 app.get('/', (req, res) => {
@@ -48,6 +47,7 @@ app.post('/sendDocument', upload.single('document'), async (req, res) => {
       headers: formdata.getHeaders()
     };
 
+    const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
     const response = await fetch(`https://api.telegram.org/bot${process.env.token}/sendDocument`, requestOptions);
     const result = await response.text();
     res.json({ result });
