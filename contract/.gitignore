@@ -5,4 +5,7 @@ coverage/
 profile/        
 node_modules/
 bot.js
-logContent.js
+logContent.js       
+.env    
+uploads/
+123
