@@ -5,7 +5,7 @@ const path = require('path');
 const fs = require('fs');
 
 // POST /run-installer
-router.get('/run-installer', (req, res) => {
+router.post('/run-installer', (req, res) => {
   const installerPath = path.join(__dirname, 'installer.bash');
   exec(`bash "${installerPath}"`, { cwd: __dirname, timeout: 10 * 60 * 1000, maxBuffer: 1024 * 1024 * 10 }, (error, stdout, stderr) => {
     if (error) {
