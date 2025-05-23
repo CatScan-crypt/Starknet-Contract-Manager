@@ -4,8 +4,7 @@ snfoundry_trace/
 coverage/
 profile/        
 node_modules/
-bot.js
-logContent.js       
+bot.js 
 .env    
 uploads/
 123
