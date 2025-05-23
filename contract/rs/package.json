@@ -4,7 +4,6 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "compilerBot": "nodemon compilerBot.js",
     "dev": "nodemon server.js"
   },
   "dependencies": {
@@ -17,6 +16,7 @@
     "node-telegram-bot-api": "^0.66.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "concurrently": "^7.6.0"
   }
 }

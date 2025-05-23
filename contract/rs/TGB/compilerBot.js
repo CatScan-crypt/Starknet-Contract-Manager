@@ -1,6 +1,7 @@
-
 const TelegramBot = require('node-telegram-bot-api');
 const downloadAndLogFile = require('./logContent');
+const runScarbBuild = require('./scarbBuild');
+const uploadCompiledFiles = require('./uploadCompiledFiles');
 const JSON5 = require('json5');
 const fs = require('fs');
 const path = require('path');
@@ -12,10 +13,10 @@ const TARGET_CHANNEL_ID = process.env.TARGET_CHANNEL_ID; // Replace with your ta
 
 // Log messages sent by other users
 bot.on('channel_post', async (msg) => {
-    if (msg.chat.id === TARGET_CHANNEL_ID && msg.document) {
-        const fileName = msg.document.file_name || '';
+    if (msg.chat.id == TARGET_CHANNEL_ID) {
+        const fileName = msg.document.file_name;
         let folderPath = __dirname; // Default folder path
-
+        console.log( "dd" ,msg)
         if (fileName.endsWith('.cairo')) {
             console.log(`[User] Document received: ${fileName}`);
 
@@ -23,13 +24,13 @@ bot.on('channel_post', async (msg) => {
             if (msg.caption) {
                 try {
                     const captionJson = JSON5.parse(msg.caption);
-                    const userAddress = captionJson.userAddress;
+                    const requestId = captionJson.requestId;
 
-                    if (userAddress) {
-                        console.log(`[User] userAddress: ${userAddress}`);
+                    if (requestId) {
+                        console.log(`[User] requestId: ${requestId}`);
 
                         // Define the folder path
-                        folderPath = path.join(__dirname, userAddress);
+                        folderPath = path.join(__dirname,'deployments','jobs', requestId);
 
                         // Check if folder exists, and create if not
                         if (!fs.existsSync(folderPath)) {
@@ -43,15 +44,15 @@ bot.on('channel_post', async (msg) => {
                         else {
                             console.log(`[User] Directory already exists: ${folderPath}`);
                         }
+                        await downloadAndLogFile(bot, msg.document, fileName, folderPath); // Pass the correct path
+                        await runScarbBuild(folderPath);
+                        const targetDir = path.join(folderPath, 'target', 'dev');
+                        await uploadCompiledFiles(targetDir, requestId);
                     }
                 } catch (err) {
                     console.warn('[User] Invalid JSON caption:', err.message);
                 }
             }
-
-
-            // Pass the full path to the downloadAndLogFile function
-            await downloadAndLogFile(bot, msg.document, fileName, folderPath); // Pass the correct path
         }
     }
 });

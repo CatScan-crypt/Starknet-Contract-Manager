@@ -3,21 +3,34 @@ const fs = require('fs');
 const path = require('path');
 const router = express.Router();
 
-// Download route to serve the compiled JSON file
-router.get('/download/:requestId', (req, res) => {
+// Route for the compiled JSON file
+router.get('/download/:requestId/compiled', (req, res) => {
   const { requestId } = req.params;
-  const folderPath = path.join(__dirname, requestId);
-  const filePath = path.join(folderPath, `compiled${requestId}.json`);
+  const filePath = path.join(__dirname, "download",'jobs', requestId, `boilerplate_erc20.compiled_contract_class.json`);
 
   if (!fs.existsSync(filePath)) {
-    return res.status(404).json({ error: 'File not found' });
+    return res.status(404).json({ error: 'JSON file not found' });
   }
-  // Log the file URL to the console
-  const fileUrl = `${req.protocol}://${req.get('host')}/download/${requestId}`;
-  console.log('File URL:', fileUrl);
-  res.download(filePath, `compiled${requestId}.json`, (err) => {
+
+  res.download(filePath, `compiled.json`, (err) => {
     if (err) {
-      res.status(500).json({ error: 'Error sending file' });
+      res.status(500).json({ error: 'Error sending JSON file' });
+    }
+  });
+});
+
+// Route for the log file (example)
+router.get('/download/:requestId/abi', (req, res) => {
+  const { requestId } = req.params;
+  const filePath = path.join(__dirname, "download", 'jobs',requestId, `boilerplate_erc20.contract_class.json`);
+
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).json({ error: 'Log file not found' });
+  }
+
+  res.download(filePath, `abi.json`, (err) => {
+    if (err) {
+      res.status(500).json({ error: 'Error sending log file' });
     }
   });
 });
