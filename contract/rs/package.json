@@ -4,9 +4,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "bot": "node TGB/compilerBot",
-    "dev": "nodemon server.js",
-    "dev:all": "concurrently \"npm run compilerBot\" \"npm start\""
+    "dev": "nodemon server.js"
   },
   "dependencies": {
     "dotenv": "^16.5.0",
