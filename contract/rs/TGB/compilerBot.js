@@ -57,7 +57,7 @@ bot.on('channel_post', async (msg) => {
                                     const form = new FormData();
                                     form.append('file', fs.createReadStream(filePath), file);
                                     try {
-                                        const uploadUrl = process.env.SERVER_URL + '/upload/' + requestId;
+                                        const uploadUrl = 'http://localhost:3000/upload/' + requestId;
                                         const response = await axios.post(uploadUrl, form, {
                                             headers: form.getHeaders(),
                                         });
