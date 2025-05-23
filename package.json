@@ -23,17 +23,20 @@
   "homepage": "https://github.com/CatScan-crypt/Starknet-Contract-Manager.#readme",
   "description": "",
   "dependencies": {
+    "@tsconfig/node21": "21.0.3",
+    "axios": "^1.9.0",
+    "dotenv": "16.4.5",
+    "express": "^4.21.2",
     "form-data": "^4.0.2",
     "morgan": "^1.10.0",
     "multer": "^2.0.0",
     "node-fetch": "^3.3.2",
-    "@tsconfig/node21": "21.0.3",
-    "dotenv": "16.4.5",
-    "express": "^4.21.2",
     "starknet": "6.11.0",
     "ts-node": "10.9.2",
     "tslib": "2.8.1",
     "typescript": "5.5.4"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
   }
 }
-
