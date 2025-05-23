@@ -1,6 +1,6 @@
 
 const TelegramBot = require('node-telegram-bot-api');
-const downloadAndLogFile = require('./logContent2');
+const downloadAndLogFile = require('./logContent');
 const JSON5 = require('json5');
 const fs = require('fs');
 const path = require('path');

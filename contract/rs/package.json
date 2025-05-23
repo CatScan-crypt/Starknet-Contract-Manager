@@ -4,6 +4,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "compilerBot": "nodemon compilerBot.js",
     "dev": "nodemon server.js"
   },
   "dependencies": {
