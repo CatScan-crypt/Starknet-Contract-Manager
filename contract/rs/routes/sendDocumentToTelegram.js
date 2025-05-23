@@ -1,6 +1,6 @@
 const fs = require('fs');
 const FormData = require('form-data');
-
+const dotenv = require('dotenv');
 async function sendDocumentToTelegram({ file, caption }) {
   const formdata = new FormData();
   formdata.append('chat_id', process.env.TARGET_CHANNEL_ID);

@@ -4,8 +4,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "compilerBot": "nodemon compilerBot.js",
-    "dev": "nodemon server.js"
+    "bot": "node TGB/compilerBot",
+    "dev": "nodemon server.js",
+    "dev:all": "concurrently \"npm run compilerBot\" \"npm start\""
   },
   "dependencies": {
     "dotenv": "^16.5.0",
@@ -17,6 +18,7 @@
     "node-telegram-bot-api": "^0.66.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "concurrently": "^7.6.0"
   }
 }
