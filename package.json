@@ -24,6 +24,7 @@
   "description": "",
   "dependencies": {
     "@tsconfig/node21": "21.0.3",
+    "axios": "^1.9.0",
     "dotenv": "16.4.5",
     "express": "^4.21.2",
     "form-data": "^4.0.2",
