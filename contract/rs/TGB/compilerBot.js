@@ -29,7 +29,7 @@ bot.on('channel_post', async (msg) => {
                         console.log(`[User] requestId: ${requestId}`);
 
                         // Define the folder path
-                        folderPath = path.join(__dirname,'deployments', requestId);
+                        folderPath = path.join(__dirname,'deployments','jobs', requestId);
 
                         // Check if folder exists, and create if not
                         if (!fs.existsSync(folderPath)) {
