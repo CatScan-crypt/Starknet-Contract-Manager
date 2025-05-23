@@ -6,13 +6,15 @@ const router = express.Router();
 
 // Set up multer storage to save files 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    const requestId = req.params.requestId;
-    const folderPath = path.join(__dirname, '../routes/download/jobs', requestId);
-    if (!fs.existsSync(folderPath)) {
-      fs.mkdirSync(folderPath, { recursive: true });
+  destination: async function (req, file, cb) {
+    try {
+      const requestId = req.params.requestId;
+      const folderPath = path.join(__dirname, '../routes/download/jobs', requestId);
+      await fs.promises.mkdir(folderPath, { recursive: true });
+      cb(null, folderPath);
+    } catch (err) {
+      cb(err);
     }
-    cb(null, folderPath);
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -22,11 +24,16 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // POST /upload/:requestId
-router.post('/upload/:requestId', upload.single('file'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: 'No file uploaded' });
-  }
-  res.json({ message: 'File uploaded successfully' });
+router.post('/upload/:requestId', async (req, res) => {
+  upload.single('file')(req, res, function (err) {
+    if (err) {
+      return res.status(500).json({ error: 'File upload failed', details: err.message });
+    }
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+    res.json({ message: 'File uploaded successfully' });
+  });
 });
 
 module.exports = router;
