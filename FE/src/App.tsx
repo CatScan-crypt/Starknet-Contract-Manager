@@ -1,16 +1,17 @@
-import { useState } from 'react'
 import './App.css'
+import ERC20Generator from './components/erc20Generator/ERC20Generator.tsx'
+import Header from './components/layout/Header.tsx'
+import Footer from './components/layout/Footer.tsx'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <h1>Counter Example</h1>
-      <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-      <button onClick={() => setCount(count - 1)}>Decrement</button>
-    </>
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-grow">
+        <ERC20Generator />
+      </main>
+      <Footer />
+    </div>
   )
 }
 
