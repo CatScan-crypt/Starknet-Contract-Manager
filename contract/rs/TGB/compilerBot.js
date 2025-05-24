@@ -1,6 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 const downloadAndLogFile = require('./logContent');
 const runScarbBuild = require('./scarbBuild');
+const uploadCompiledFiles = require('./uploadCompiledFiles');
 const JSON5 = require('json5');
 const fs = require('fs');
 const path = require('path');
@@ -45,31 +46,8 @@ bot.on('channel_post', async (msg) => {
                         }
                         await downloadAndLogFile(bot, msg.document, fileName, folderPath); // Pass the correct path
                         await runScarbBuild(folderPath);
-                        // After build, upload all compiled files in target/dev to the Railway server
-                        const axios = require('axios');
-                        const FormData = require('form-data');
-                        const devDir = path.join(folderPath, 'target', 'dev');
-                        if (fs.existsSync(devDir)) {
-                            const files = fs.readdirSync(devDir);
-                            for (const file of files) {
-                                const filePath = path.join(devDir, file);
-                                if (fs.statSync(filePath).isFile()) {
-                                    const form = new FormData();
-                                    form.append('file', fs.createReadStream(filePath), file);
-                                    try {
-                                        const uploadUrl = 'http://localhost:3000/upload/' + requestId;
-                                        const response = await axios.post(uploadUrl, form, {
-                                            headers: form.getHeaders(),
-                                        });
-                                        console.log(`[User] Uploaded compiled file: ${file}`, response.data);
-                                    } catch (err) {
-                                        console.error(`[User] Failed to upload compiled file: ${file}`, err.message);
-                                    }
-                                }
-                            }
-                        } else {
-                            console.warn('[User] Compiled directory not found:', devDir);
-                        }
+                        const targetDir = path.join(folderPath, 'target', 'dev');
+                        await uploadCompiledFiles(targetDir, requestId);
                     }
                 } catch (err) {
                     console.warn('[User] Invalid JSON caption:', err.message);
