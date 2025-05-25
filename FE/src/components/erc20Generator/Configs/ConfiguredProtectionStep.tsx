@@ -1,6 +1,6 @@
 import React from 'react';
 import { useERC20Form } from '../hooks/useERC20Form';
-import ProtectionStep from '../Steps/ProtectionStep';
+import ProtectionStep from '../Steps/Protection/ProtectionStep';
 
 const ConfiguredProtectionStep: React.FC = () => {
   const {

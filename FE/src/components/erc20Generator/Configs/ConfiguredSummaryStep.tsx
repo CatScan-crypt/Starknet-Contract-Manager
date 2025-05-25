@@ -1,6 +1,6 @@
 import React from 'react';
 import { useERC20Form } from '../hooks/useERC20Form';
-import SummaryStep from '../Steps/SummaryStep';
+import SummaryStep from '../Steps/Summary/SummaryStep';
 
 const ConfiguredSummaryStep: React.FC = () => {
   const {

@@ -44,7 +44,7 @@ export interface RatesStepProps {
   dividendDistributionMode: 'even' | 'custom';
   setDividendDistributionMode: (mode: 'even' | 'custom') => void;
   dexPercentages: Record<string, number>;
-  setDexPercentages: (percentages: Record<string, number>) => void;
+  setDexPercentages: React.Dispatch<React.SetStateAction<Record<string, number>>>;
 }
 
 export interface SummaryStepProps {
