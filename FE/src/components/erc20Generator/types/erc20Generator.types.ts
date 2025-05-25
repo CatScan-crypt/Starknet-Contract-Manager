@@ -44,7 +44,7 @@ export interface RatesStepProps {
   dividendDistributionMode: 'even' | 'custom';
   setDividendDistributionMode: (mode: 'even' | 'custom') => void;
   dexPercentages: Record<string, number>;
-  setDexPercentages: (percentages: Record<string, number>) => void;
+  setDexPercentages: React.Dispatch<React.SetStateAction<Record<string, number>>>;
 }
 
 export interface SummaryStepProps {
@@ -71,6 +71,11 @@ export interface SummaryStepProps {
   selectedDividendDEXs: string[];
   dividendDistributionMode: 'even' | 'custom';
   dexPercentages: Record<string, number>;
+  // Additional features passed from ConfiguredSummaryStep
+  deflationaryEnabled: boolean;
+  reflectionEnabled: boolean;
+  feeEnabled: boolean;
+  customTaxEnabled: boolean;
 }
 
 // It might also be good to have a comprehensive type for all form data
@@ -98,5 +103,10 @@ export interface ERC20FormData {
   currentDEXSelection: string; // This might be more UI state than form data
   dividendDistributionMode: 'even' | 'custom';
   dexPercentages: Record<string, number>;
+  // Additional features
+  deflationaryEnabled: boolean;
+  reflectionEnabled: boolean;
+  feeEnabled: boolean;
+  customTaxEnabled: boolean;
   generatedCode: string; // For storing the final generated code
 }

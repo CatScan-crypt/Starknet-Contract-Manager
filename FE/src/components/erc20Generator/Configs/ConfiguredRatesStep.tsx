@@ -1,6 +1,6 @@
 import React from 'react';
 import { useERC20Form } from '../hooks/useERC20Form';
-import RatesStep from '../Steps/RatesStep';
+import RatesStep from '../Steps/Rates/RatesStep';
 
 const ConfiguredRatesStep: React.FC = () => {
   const {

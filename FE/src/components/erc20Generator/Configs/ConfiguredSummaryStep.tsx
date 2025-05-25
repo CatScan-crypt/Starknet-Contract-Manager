@@ -1,6 +1,6 @@
 import React from 'react';
 import { useERC20Form } from '../hooks/useERC20Form';
-import SummaryStep from '../Steps/SummaryStep';
+import SummaryStep from '../Steps/Summary/SummaryStep';
 
 const ConfiguredSummaryStep: React.FC = () => {
   const {
@@ -12,6 +12,21 @@ const ConfiguredSummaryStep: React.FC = () => {
     isBurnable,
     generatedCode,
     setGeneratedCode, 
+    // Protection props
+    defaultExchangeEnabled,
+    antiBotCooldownEnabled,
+    swappableEnabled,
+    maxAmountPerWalletEnabled,
+    maxTxLimitEnabled,
+    pausableEnabled,
+    blacklistEnabled,
+    transferableOwnerEnabled,
+    permitEnabled, 
+    // Rates props
+    enableDividendDEX,
+    selectedDividendDEXs,
+    dividendDistributionMode,
+    dexPercentages,
   } = useERC20Form();
 
   const handleGenerateCode = () => {
@@ -29,6 +44,23 @@ const ConfiguredSummaryStep: React.FC = () => {
       isBurnable={isBurnable}
       generatedCode={generatedCode}
       handleGenerateCode={handleGenerateCode}
+      defaultExchangeEnabled={defaultExchangeEnabled}      
+      antiBotCooldownEnabled={antiBotCooldownEnabled}
+      swappableEnabled={swappableEnabled}
+      maxAmountPerWalletEnabled={maxAmountPerWalletEnabled}
+      maxTxLimitEnabled={maxTxLimitEnabled}
+      pausableEnabled={pausableEnabled}
+      blacklistEnabled={blacklistEnabled}
+      transferableOwnerEnabled={transferableOwnerEnabled}
+      permitEnabled={permitEnabled} 
+      enableDividendDEX={enableDividendDEX}
+      selectedDividendDEXs={selectedDividendDEXs}
+      dividendDistributionMode={dividendDistributionMode}
+      dexPercentages={dexPercentages}
+      deflationaryEnabled={false} 
+      reflectionEnabled={false}   
+      feeEnabled={false}          
+      customTaxEnabled={false}    
     />
   );
 };
