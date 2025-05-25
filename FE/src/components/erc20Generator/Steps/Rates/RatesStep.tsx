@@ -59,7 +59,14 @@ const RatesStep: React.FC<RatesStepProps> = ({
 
           {selectedDividendDEXs.length > 0 && (
             <div className="mt-3">
-              <p className="text-xs font-medium text-gray-600 mb-2">Selected Exchanges:</p>
+              <div className="flex justify-between items-start mb-2">
+                <p className="text-xs font-medium text-gray-600">Selected Exchanges:</p>
+                <DistributionModeSwitch 
+                  dividendDistributionMode={dividendDistributionMode}
+                  setDividendDistributionMode={setDividendDistributionMode}
+                  isSwitchEnabled={selectedDividendDEXs.length >= 2}
+                />
+              </div>
               <ul className="space-y-2">
                 {selectedDividendDEXs.map(dexUrl => (
                   <SelectedDexItem
@@ -75,11 +82,6 @@ const RatesStep: React.FC<RatesStepProps> = ({
                   />
                 ))}
               </ul>
-              <DistributionModeSwitch 
-                dividendDistributionMode={dividendDistributionMode}
-                setDividendDistributionMode={setDividendDistributionMode}
-                isSwitchEnabled={selectedDividendDEXs.length >= 2}
-              />
               <DividendRate />
               {/* Total Percentage Warning for Custom Mode with >2 DEXs */}
               {dividendDistributionMode === 'custom' && selectedDividendDEXs.length > 2 && totalCustomPercentage !== 100 && (
