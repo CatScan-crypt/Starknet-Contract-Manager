@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PercentageInput from '../../../../common/PercentageInput';
 
 interface DividendRateProps {
   // Define any props if needed, e.g., for passing data up
@@ -9,6 +10,11 @@ const DividendRate: React.FC<DividendRateProps> = () => {
   const [sellTaxEnabled, setSellTaxEnabled] = useState(true); // Default to checked
   const [transferTaxEnabled, setTransferTaxEnabled] = useState(false);
   const [warningMessage, setWarningMessage] = useState<string | null>(null);
+
+  // State for the percentage values
+  const [buyTaxPercentage, setBuyTaxPercentage] = useState<number | undefined>(undefined);
+  const [sellTaxPercentage, setSellTaxPercentage] = useState<number | undefined>(1); // Default to 1% if enabled
+  const [transferTaxPercentage, setTransferTaxPercentage] = useState<number | undefined>(undefined);
 
   const handleCheckboxChange = (
     setter: React.Dispatch<React.SetStateAction<boolean>>,
@@ -27,6 +33,19 @@ const DividendRate: React.FC<DividendRateProps> = () => {
 
     setter(!currentValue);
     setWarningMessage(null); // Clear warning if action is valid
+  };
+
+  // Handlers for PercentageInput components
+  const handleBuyTaxPercentageChange = (value: number | undefined) => {
+    setBuyTaxPercentage(value);
+  };
+
+  const handleSellTaxPercentageChange = (value: number | undefined) => {
+    setSellTaxPercentage(value);
+  };
+
+  const handleTransferTaxPercentageChange = (value: number | undefined) => {
+    setTransferTaxPercentage(value);
   };
 
   return (
@@ -55,13 +74,30 @@ const DividendRate: React.FC<DividendRateProps> = () => {
               className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-500 rounded bg-gray-800"
             />
           </div>
-          <div className="ml-3 text-sm">
-            <label htmlFor="buy-tax-rate" className="font-medium text-gray-200">
-              Buy tax rate
-            </label>
-            <p className="text-gray-400 text-xs mt-1">
-              Specify the exact rate of tax to be charged on buys.
-            </p>
+          <div className="ml-3 text-sm flex-grow flex justify-between items-center">
+            <div>
+              <label htmlFor="buy-tax-rate" className="font-medium text-gray-200">
+                Buy tax rate
+              </label>
+              <p className="text-gray-400 text-xs mt-1">
+                Specify the exact rate of tax to be charged on buys.
+              </p>
+            </div>
+            {buyTaxEnabled && (
+              <div className="ml-4">
+                <PercentageInput
+                  value={buyTaxPercentage}
+                  onValueChange={handleBuyTaxPercentageChange}
+                  min={0}
+                  max={100} // Or a more practical max like 25?
+                  step={0.01}
+                  placeholder="0.00"
+                  widthClass="w-12"
+                  ariaLabel="Buy tax percentage"
+                  id="buy-tax-percentage"
+                />
+              </div>
+            )}
           </div>
         </div>
 
@@ -77,13 +113,30 @@ const DividendRate: React.FC<DividendRateProps> = () => {
               className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-500 rounded bg-gray-800"
             />
           </div>
-          <div className="ml-3 text-sm">
-            <label htmlFor="sell-tax-rate" className="font-medium text-gray-200">
-              Sell tax rate
-            </label>
-            <p className="text-gray-400 text-xs mt-1">
-              Specify the exact rate of tax to be charged on sells.
-            </p>
+          <div className="ml-3 text-sm flex-grow flex justify-between items-center">
+            <div>
+              <label htmlFor="sell-tax-rate" className="font-medium text-gray-200">
+                Sell tax rate
+              </label>
+              <p className="text-gray-400 text-xs mt-1">
+                Specify the exact rate of tax to be charged on sells.
+              </p>
+            </div>
+            {sellTaxEnabled && (
+              <div className="ml-4">
+                <PercentageInput
+                  value={sellTaxPercentage}
+                  onValueChange={handleSellTaxPercentageChange}
+                  min={0}
+                  max={100} // Or a more practical max like 25?
+                  step={0.01}
+                  placeholder="0.00"
+                  widthClass="w-12"
+                  ariaLabel="Sell tax percentage"
+                  id="sell-tax-percentage"
+                />
+              </div>
+            )}
           </div>
         </div>
 
@@ -99,13 +152,30 @@ const DividendRate: React.FC<DividendRateProps> = () => {
               className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-500 rounded bg-gray-800"
             />
           </div>
-          <div className="ml-3 text-sm">
-            <label htmlFor="transfer-tax-rate" className="font-medium text-gray-200">
-              Transfer tax rate
-            </label>
-            <p className="text-gray-400 text-xs mt-1">
-              Specify the exact rate of tax to be charged on transfers (other types of transactions).
-            </p>
+          <div className="ml-3 text-sm flex-grow flex justify-between items-center">
+            <div>
+              <label htmlFor="transfer-tax-rate" className="font-medium text-gray-200">
+                Transfer tax rate
+              </label>
+              <p className="text-gray-400 text-xs mt-1">
+                Specify the exact rate of tax to be charged on transfers (other types of transactions).
+              </p>
+            </div>
+            {transferTaxEnabled && (
+              <div className="ml-4">
+                <PercentageInput
+                  value={transferTaxPercentage}
+                  onValueChange={handleTransferTaxPercentageChange}
+                  min={0}
+                  max={100} // Or a more practical max
+                  step={0.01}
+                  placeholder="0.00"
+                  widthClass="w-12"
+                  ariaLabel="Transfer tax percentage"
+                  id="transfer-tax-percentage"
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
