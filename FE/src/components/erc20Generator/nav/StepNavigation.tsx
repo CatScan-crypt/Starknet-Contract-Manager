@@ -1,5 +1,5 @@
 import React from 'react';
-import { navSteps } from '../constants/erc20Generator.constants';
+import { navSteps } from 'navSteps';
 
 interface NavStepItem {
   key: string;

@@ -23,7 +23,7 @@
     "noUncheckedSideEffectImports": true,
 
     "baseUrl": ".",                        
-    "paths": {        
+    "paths": {       
       "ERC20Generator": ["src/components/erc20Generator/ERC20Generator"],
       "Header": ["src/components/layout/Header"],
       "Footer": ["src/components/layout/Footer"],
@@ -45,6 +45,17 @@
       "DexSelectionInput": ["src/components/erc20Generator/Steps/Rates/components/DexDividends/DexSelectionInput"],
       "SelectedDexItem": ["src/components/erc20Generator/Steps/Rates/components/DexDividends/SelectedDexItem"],
       "DistributionModeSwitch": ["src/components/erc20Generator/Steps/Rates/components/DexDividends/DistributionModeSwitch"],
+      "RatesStepProps": ["src/components/erc20Generator/types/erc20Generator.types"],
+      "SummaryStepProps": ["src/components/erc20Generator/types/erc20Generator.types"],
+      "ProtectionStepProps": ["src/components/erc20Generator/types/erc20Generator.types"],
+      "BasicPropertiesStepProps": ["src/components/erc20Generator/types/erc20Generator.types"],
+      "NameInput": ["src/components/erc20Generator/Steps/BasicProperties/components/NameInput"],
+      "SymbolInput": ["src/components/erc20Generator/Steps/BasicProperties/components/SymbolInput"],
+      "NumericPropertyInput": ["src/components/erc20Generator/Steps/BasicProperties/components/TotalSupplyInput"],
+      "FeatureToggle": ["src/components/erc20Generator/Steps/BasicProperties/components/FeatureToggle"],
+      "BasicPropertiesStep": ["src/components/erc20Generator/Steps/BasicProperties/BasicPropertiesStep"],
+      "PercentageInput": ["src/components/erc20Generator/common/PercentageInput"], 
+
     }
   },
   "include": ["src"],

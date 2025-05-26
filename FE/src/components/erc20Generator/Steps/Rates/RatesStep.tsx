@@ -4,9 +4,9 @@ import DexSelectionInput from 'DexSelectionInput';
 import SelectedDexItem from 'SelectedDexItem';
 import DistributionModeSwitch from 'DistributionModeSwitch';
 import DividendRate from 'DividendRate';
-import { starknetExchanges } from '../../constants/erc20Generator.constants';
-import { useDexManagement } from '../../hooks/useDexManagement';
-import type { RatesStepProps } from '../../types/erc20Generator.types';
+import { starknetExchanges } from 'starknetExchanges';
+import { useDexManagement } from 'useDexManagement';
+import type { RatesStepProps } from 'RatesStepProps';
 
 const RatesStep: React.FC<RatesStepProps> = ({
   enableDividendDEX,

@@ -1,6 +1,6 @@
 import React from 'react';
-import type { ProtectionStepProps } from '../../types/erc20Generator.types';
-import ToggleCard from '../../../ToggleCard/ToggleCard';
+import type { ProtectionStepProps } from 'ProtectionStepProps';
+import ToggleCard from 'ToggleCard';
 
 const ProtectionStep: React.FC<ProtectionStepProps> = ({
   defaultExchangeEnabled,

@@ -1,5 +1,5 @@
 import React from 'react';
-import type { SummaryStepProps } from '../../types/erc20Generator.types';
+import type { SummaryStepProps } from 'SummaryStepProps';
 
 const SummaryStep: React.FC<SummaryStepProps> = ({
   tokenName,

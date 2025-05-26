@@ -1,9 +1,9 @@
 import React from 'react';
-import type { BasicPropertiesStepProps } from '../../types/erc20Generator.types';
-import NameInput from './components/NameInput';
-import SymbolInput from './components/SymbolInput';
-import NumericPropertyInput from './components/TotalSupplyInput';
-import FeatureToggle from './components/FeatureToggle';
+import type { BasicPropertiesStepProps } from 'BasicPropertiesStepProps';
+import NameInput from 'NameInput';
+import SymbolInput from 'SymbolInput';
+import NumericPropertyInput from 'NumericPropertyInput';
+import FeatureToggle from 'FeatureToggle';
 
 const BasicPropertiesStep: React.FC<BasicPropertiesStepProps> = ({
   tokenName,
