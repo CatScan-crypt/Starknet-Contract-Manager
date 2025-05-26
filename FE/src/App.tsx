@@ -1,7 +1,7 @@
 import './App.css'
-import ERC20Generator from './components/erc20Generator/ERC20Generator.tsx'
-import Header from './components/layout/Header.tsx'
-import Footer from './components/layout/Footer.tsx'
+import ERC20Generator from 'ERC20Generator'
+import Header from 'Header'
+import Footer from 'Footer'
 
 function App() {
   return (
