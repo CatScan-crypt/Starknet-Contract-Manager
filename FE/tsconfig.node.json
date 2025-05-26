@@ -5,20 +5,21 @@
     "lib": ["ES2023"],
     "module": "ESNext",
     "skipLibCheck": true,
+
+    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,
 
+    /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
-
-    "types": ["node"] // ✅ Add this line
+    "noUncheckedSideEffectImports": true
   },
-  "include": ["alias.config.ts", "vite.config.ts"]
+  "include": ["alias.config.ts","vite.config.ts"]
 }
