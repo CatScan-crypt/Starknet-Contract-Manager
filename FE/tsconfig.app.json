@@ -7,7 +7,6 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
@@ -15,13 +14,31 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    "baseUrl": ".",                        
+    "paths": {        
+      "ERC20Generator": ["src/components/erc20Generator/ERC20Generator"],
+      "Header": ["src/components/layout/Header"],
+      "Footer": ["src/components/layout/Footer"],
+      "erc20GeneratorTypes": ["src/components/erc20Generator/erc20Generator.types"],
+      "ToggleCard": ["src/components/erc20Generator/ToggleCard"],
+      "ConfiguredBasicPropertiesStep": ["src/components/erc20Generator/Configs/ConfiguredBasicPropertiesStep"],
+      "ConfiguredProtectionStep": ["src/components/erc20Generator/Configs/ConfiguredProtectionStep"],
+      "ConfiguredRatesStep": ["src/components/erc20Generator/Configs/ConfiguredRatesStep"],
+      "ConfiguredSummaryStep": ["src/components/erc20Generator/Configs/ConfiguredSummaryStep"],
+      "StepNavigation": ["src/components/erc20Generator/nav/StepNavigation"],
+      "AnimatedStepContent": ["src/components/erc20Generator/animation/AnimatedStepContent"],
+      "animationVariants": ["src/components/erc20Generator/animation/animationVariants"],
+      "navSteps": ["src/components/erc20Generator/constants/erc20Generator.constants"],
+      "useERC20Form": ["src/components/erc20Generator/hooks/useERC20Form"],
+      "useDexManagement": ["src/components/erc20Generator/hooks/useDexManagement"],
+    }
   },
-  "include": ["src", "ERC20Generator.tsx"]
+  "include": ["src"]
 }

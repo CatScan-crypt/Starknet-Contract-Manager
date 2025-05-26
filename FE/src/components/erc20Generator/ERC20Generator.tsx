@@ -1,13 +1,13 @@
 import React from 'react';
-import ConfiguredProtectionStep from './Configs/ConfiguredProtectionStep.tsx';
-import ConfiguredRatesStep from './Configs/ConfiguredRatesStep.tsx';
-import ConfiguredSummaryStep from './Configs/ConfiguredSummaryStep.tsx';
-import { useERC20Form } from './hooks/useERC20Form.ts';
-import { navSteps } from './constants/erc20Generator.constants.ts';
-import ConfiguredBasicPropertiesStep from './Configs/ConfiguredBasicPropertiesStep.tsx'; 
-import StepNavigation from './nav/StepNavigation.tsx';
-import AnimatedStepContent from './animation/AnimatedStepContent.tsx';
-import { slideVariants } from './animation/animationVariants.tsx';
+import ConfiguredProtectionStep from 'ConfiguredProtectionStep';
+import ConfiguredRatesStep from 'ConfiguredRatesStep';
+import ConfiguredSummaryStep from 'ConfiguredSummaryStep';
+import { useERC20Form } from 'useERC20Form';
+import { navSteps } from 'navSteps';
+import ConfiguredBasicPropertiesStep from 'ConfiguredBasicPropertiesStep'; 
+import StepNavigation from 'StepNavigation';
+import AnimatedStepContent from 'AnimatedStepContent';
+import { slideVariants } from 'animationVariants';
 
 interface ERC20GeneratorProps {}
 
