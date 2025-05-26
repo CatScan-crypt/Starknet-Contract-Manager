@@ -1,12 +1,12 @@
 import React from 'react';
-import type { RatesStepProps } from '../../types/erc20Generator.types';
-import ToggleCard from '../../../ToggleCard/ToggleCard';
+import ToggleCard from 'ToggleCard';
+import DexSelectionInput from 'DexSelectionInput';
+import SelectedDexItem from 'SelectedDexItem';
+import DistributionModeSwitch from 'DistributionModeSwitch';
+import DividendRate from 'DividendRate';
 import { starknetExchanges } from '../../constants/erc20Generator.constants';
 import { useDexManagement } from '../../hooks/useDexManagement';
-import DexSelectionInput from './components/DexDividends/DexSelectionInput';
-import SelectedDexItem from './components/DexDividends/SelectedDexItem';
-import DistributionModeSwitch from './components/DexDividends/DistributionModeSwitch';
-import DividendRate from './components/DexDividends/DividendRate';
+import type { RatesStepProps } from '../../types/erc20Generator.types';
 
 const RatesStep: React.FC<RatesStepProps> = ({
   enableDividendDEX,
