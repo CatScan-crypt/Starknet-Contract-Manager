@@ -6,7 +6,8 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-
+    "typeRoots": ["../node_modules/@types"],
+    
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
@@ -27,7 +28,6 @@
       "Header": ["src/components/layout/Header"],
       "Footer": ["src/components/layout/Footer"],
       "erc20GeneratorTypes": ["src/components/erc20Generator/erc20Generator.types"],
-      "ToggleCard": ["src/components/erc20Generator/ToggleCard"],
       "ConfiguredBasicPropertiesStep": ["src/components/erc20Generator/Configs/ConfiguredBasicPropertiesStep"],
       "ConfiguredProtectionStep": ["src/components/erc20Generator/Configs/ConfiguredProtectionStep"],
       "ConfiguredRatesStep": ["src/components/erc20Generator/Configs/ConfiguredRatesStep"],
@@ -38,8 +38,14 @@
       "navSteps": ["src/components/erc20Generator/constants/erc20Generator.constants"],
       "useERC20Form": ["src/components/erc20Generator/hooks/useERC20Form"],
       "useDexManagement": ["src/components/erc20Generator/hooks/useDexManagement"],
+      "useERC20Generator": ["src/components/erc20Generator/hooks/useERC20Generator"],
+      "DividendRate": ["src/components/erc20Generator/Steps/Rates/components/DexDividends/DividendRate"],
+      "ToggleCard": ["src/components/ToggleCard/ToggleCard"],
+      "starknetExchanges": ["src/components/erc20Generator/constants/erc20Generator.constants"],
+      "DexSelectionInput": ["src/components/erc20Generator/Steps/Rates/components/DexDividends/DexSelectionInput"],
+      "SelectedDexItem": ["src/components/erc20Generator/Steps/Rates/components/DexDividends/SelectedDexItem"],
+      "DistributionModeSwitch": ["src/components/erc20Generator/Steps/Rates/components/DexDividends/DistributionModeSwitch"],
     }
   },
-  "include": ["src/"],
-  "exclude": ["alias.config.ts"]
+  "include": ["src"],
 }
