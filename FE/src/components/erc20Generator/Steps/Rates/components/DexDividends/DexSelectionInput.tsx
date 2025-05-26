@@ -1,5 +1,5 @@
 import React from 'react';
-import type { StarkNetExchange } from '../../../../constants/erc20Generator.constants'; // Corrected path
+import type { StarkNetExchange } from 'starknetExchanges';
 
 interface DexSelectionInputProps {
   currentDEXSelection: string;

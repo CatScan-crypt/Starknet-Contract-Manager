@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PercentageInput from '../../../../common/PercentageInput';
+import PercentageInput from 'PercentageInput';
 
 interface DividendRateProps {
   // Define any props if needed, e.g., for passing data up

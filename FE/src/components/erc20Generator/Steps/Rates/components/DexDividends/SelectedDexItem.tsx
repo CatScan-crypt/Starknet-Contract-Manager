@@ -1,6 +1,6 @@
 import React from 'react';
-import type { StarkNetExchange } from '../../../../constants/erc20Generator.constants';
-import PercentageInput from '../../../../common/PercentageInput';
+import type { StarkNetExchange } from 'starknetExchanges';
+import PercentageInput from 'PercentageInput';
 
 interface SelectedDexItemProps {
   dexUrl: string;
