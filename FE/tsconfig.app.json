@@ -40,5 +40,6 @@
       "useDexManagement": ["src/components/erc20Generator/hooks/useDexManagement"],
     }
   },
-  "include": ["src/"]
+  "include": ["src/"],
+  "exclude": ["alias.config.ts"]
 }
