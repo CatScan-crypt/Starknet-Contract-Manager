@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { connect } from "starknetkit";
 
 type WalletWithAddress = {
