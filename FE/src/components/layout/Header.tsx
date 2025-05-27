@@ -1,4 +1,5 @@
 import React from 'react';
+import { StarknetKitWalletButton } from "../starknetkit";
 
 const Header: React.FC = () => {
   return (
@@ -23,12 +24,9 @@ const Header: React.FC = () => {
         </nav>
         {/* Right: Connect Wallet */}
         <div>
-          <button
-            className="bg-white text-sky-600 font-semibold px-4 py-2 rounded shadow hover:bg-sky-100 transition-colors duration-150 focus:outline-none"
-            type="button"
-          >
-            Connect Wallet
-          </button>
+          {/* Wallet Connect Button */}
+          {/* Adjust the import path if needed */}
+          <StarknetKitWalletButton />
         </div>
       </div>
     </header>
