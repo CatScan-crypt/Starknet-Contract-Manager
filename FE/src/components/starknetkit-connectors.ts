@@ -1,7 +1,7 @@
 import { constants } from "starknet";
 import {
   ArgentMobileConnector,
-  isInArgentMobileAppBrowser,
+//  isInArgentMobileAppBrowser,
 } from "starknetkit/argentMobile";
 import { InjectedConnector } from "starknetkit/injected";
 import { WebWalletConnector } from "starknetkit/webwallet";
