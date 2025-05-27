@@ -1,44 +1,54 @@
-import { useState } from "react";
-import { connect } from "starknetkit";
 
-type WalletWithAddress = {
-  selectedAddress: string;
-};
+import {
+  useAccount,
+  useConnect,
+  type Connector,
+} from "@starknet-react/core";
+import {
+  useStarknetkitConnectModal,
+  type StarknetkitConnector,
+} from "starknetkit";
+import { availableConnectors } from "./starknetkit-connectors";
 
 export function StarknetKitWalletButton() {
-  const [isConnecting, setIsConnecting] = useState(false);
-  const [account, setAccount] = useState<string | null>(null);
+  const { connectAsync } = useConnect();
+  const { starknetkitConnectModal } = useStarknetkitConnectModal({
+    connectors: availableConnectors as StarknetkitConnector[],
+  });
+  const { address } = useAccount();
 
-  const handleConnect = async () => {
-    setIsConnecting(true);
+  async function connectWalletWithModal() {
     try {
-      const res = await connect({}); // always pass an options object
-      if (res && res.wallet) {
-        const walletWithAddress = res.wallet as unknown as WalletWithAddress;
-        if (walletWithAddress.selectedAddress) {
-          setAccount(walletWithAddress.selectedAddress);
-        }
+      const result = await starknetkitConnectModal();
+      console.log('[StarknetKit] Modal result:', result);
+      const connector = result?.connector;
+      if (!connector) {
+        console.warn('[StarknetKit] No connector returned from modal.');
+        return;
       }
-    } finally {
-      setIsConnecting(false);
+      console.log('[StarknetKit] Connecting with connector:', connector);
+      await connectAsync({ connector: connector as Connector });
+    } catch (err) {
+      console.error('[StarknetKit] Error during wallet connection:', err);
+      alert('Wallet connection failed: ' + (err instanceof Error ? err.message : String(err)));
     }
-  };
-
-  if (account) {
-    return (
-      <button className="px-4 py-2 bg-green-500 text-white rounded" disabled>
-        Connected: {account.slice(0, 6)}...{account.slice(-4)}
-      </button>
-    );
   }
 
   return (
-    <button
-      className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-      onClick={handleConnect}
-      disabled={isConnecting}
-    >
-      {isConnecting ? "Connecting..." : "Connect Starknet Wallet"}
-    </button>
+    <div>
+      {address ? (
+        <button className="px-4 py-2 bg-green-500 text-white rounded" disabled>
+          Connected: {address.slice(0, 6)}...{address.slice(-4)}
+        </button>
+      ) : (
+        <button
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          onClick={connectWalletWithModal}
+        >
+          Connect Starknet Wallet
+        </button>
+      )}
+    </div>
   );
 }
+
