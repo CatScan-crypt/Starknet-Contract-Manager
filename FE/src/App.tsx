@@ -18,7 +18,7 @@ function App() {
         {/* Main content area: sidebar + main */}
         <div className="flex flex-1">
           <SideNavBar />
-          <main className="flex-grow">
+          <main className="flex-grow pt-20 pb-20">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/wizards" element={<Wizards><ERC20Generator /></Wizards>} />
