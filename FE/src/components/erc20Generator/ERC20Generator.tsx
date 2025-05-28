@@ -58,7 +58,6 @@ const ERC20Generator: React.FC<ERC20GeneratorProps> = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex flex-col md:flex-row md:space-x-8">
-        <StepNavigation currentStep={currentStep} onNavClick={handleNavClick} />
         <AnimatedStepContent
           currentStepKey={currentStep}
           animationDirection={animationDirection}
@@ -66,6 +65,7 @@ const ERC20Generator: React.FC<ERC20GeneratorProps> = () => {
         >
           {renderStepContent()}
         </AnimatedStepContent>
+        <StepNavigation currentStep={currentStep} onNavClick={handleNavClick} />
       </div>
     </div>
   );
