@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Header from 'Header';
 import Footer from 'Footer';
 import Wizards from './pages/Wizards';
+import WizardsSubRoute from './pages/WizardsSubRoute';
 import Tools from './pages/Tools';
 import Deployments from './pages/Deployments';
 import Guides from './pages/Guides';
@@ -22,7 +23,10 @@ function App() {
           <main className="flex-grow pt-20 pb-20">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/wizards" element={<Wizards><ERC20Generator /></Wizards>} />
+              <Route path="/wizards" element={<Wizards />}>
+                <Route path="erc20" element={<ERC20Generator />} />
+                <Route path="nft" element={<WizardsSubRoute />} />
+              </Route>
               <Route path="/tools" element={<Tools />} />
               <Route path="/deployments" element={<Deployments />} />
               <Route path="/guides" element={<Guides />} />
