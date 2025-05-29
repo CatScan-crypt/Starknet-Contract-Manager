@@ -9,6 +9,7 @@ import Guides from './pages/Guides';
 import Home from './pages/Home';
 import ERC20Generator from 'ERC20Generator';
 import SideNavBar from './components/layout/sideNavBar';
+import Settings from './pages/Settings';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <Route path="/deployments" element={<Deployments />} />
               <Route path="/guides" element={<Guides />} />
               <Route path="*" element={<Navigate to="/" replace />} />
+              <Route path="/settings" element={<Settings />} />
             </Routes>
           </main>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { StarknetKitWalletButton } from "../StarknetKit/starknetkit";
-import gearIcon from './gear.svg';
+
 const Header: React.FC = () => {
   const navigate = useNavigate();
   const [showSettings, setShowSettings] = useState(false);
@@ -29,7 +29,7 @@ const Header: React.FC = () => {
             aria-label="Open Settings"
             type="button"
           >
-            <img src={gearIcon} alt="Settings" className="h-6 w-6 scale-250" />
+            <img src="/gear.svg"alt="Settings" className="h-6 w-6 scale-250" />
             </button>
             <StarknetKitWalletButton />
             {/* Gear Button */}
