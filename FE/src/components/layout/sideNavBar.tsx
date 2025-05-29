@@ -2,10 +2,12 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const navItems = [
+  { label: 'Home', path: '/' },
   { label: 'Wizards', path: '/wizards' },
   { label: 'Tools', path: '/tools' },
   { label: 'Deployments', path: '/deployments' },
   { label: 'Guides', path: '/guides' },
+
 ];
 
 const SideNavBar: React.FC = () => {
@@ -32,9 +34,9 @@ const SideNavBar: React.FC = () => {
           );
         })}
       </nav>
-      <div className="mt-auto">
+      <div className="mt-auto mb-6">
         <button
-          className={`text-lg text-left px-4 py-2 rounded transition-colors duration-150 focus:outline-none pb-18 ${
+          className={`text-lg text-left px-4 py-2 rounded transition-colors duration-150 focus:outline-none mb-14 ${
             location.pathname === '/settings' ? 'font-semibold' : 'hover:bg-sky-600'
           }`}
           onClick={() => navigate('/settings')}

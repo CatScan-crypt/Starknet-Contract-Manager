@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { StarknetKitWalletButton } from "../StarknetKit/starknetkit";
+import { useAccount, useDisconnect, useNetwork } from "@starknet-react/core";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
   const [showSettings, setShowSettings] = useState(false);
+  const { account } = useAccount();
+  const { disconnect } = useDisconnect();
+  const { chain } = useNetwork();
+
+  // Determine explorer URLs based on network
+  const isSepolia = chain?.name === 'Starknet Sepolia Testnet';
+  const network = isSepolia ? 'sepolia.' : '';
+  const voyagerUrl = `https://${network}voyager.online/contract/${account?.address}`;
+  const starkscanUrl = `https://${network}starkscan.co/contract/${account?.address}`;
 
   return (
     <>
@@ -58,7 +68,31 @@ const Header: React.FC = () => {
             </button>
             <h2 className="text-xl font-bold mb-4">Settings</h2>
             {/* Settings content goes here */}
-            <p className="text-gray-600">Settings window content...</p>
+            <div className="flex flex-col gap-4 items-center">
+              <p className="text-gray-600">Settings window content...</p>
+              {account && (
+                <>
+                  <button
+                    onClick={() => window.open(voyagerUrl, '_blank')}
+                    className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                  >
+                    View on Voyager
+                  </button>
+                  <button
+                    onClick={() => window.open(starkscanUrl, '_blank')}
+                    className="px-6 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition"
+                  >
+                    View on Starkscan
+                  </button>
+                  <button
+                    onClick={() => { disconnect(); setShowSettings(false); }}
+                    className="px-6 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+                  >
+                    Disconnect
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         </div>
       )}
