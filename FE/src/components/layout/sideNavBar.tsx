@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const navItems = [
   { label: 'Tools', path: '/tools', iconSrc: '/tools.svg' },
   { label: 'Deployments', path: '/deployments', iconSrc: '/deployments.svg' },
-  { label: 'Guides', path: '/guides', iconSrc: '/tools.svg' }, // Using a generic icon for Guides
+  { label: 'Guides', path: '/guides', iconSrc: '/guides.svg' }, // Using a generic icon for Guides
 ];
 
 const wizardsNav = [
