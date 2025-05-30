@@ -41,7 +41,7 @@ function App() {
         {/* Main content area: sidebar + main */}
         <div className="flex flex-1">
           <SideNavBar />
-          <main className="flex-grow pt-20 pb-20">
+          <main className="flex-grow pt-20 pb-20 ml-56">
             <AppRoutes />
           </main>
         </div>
