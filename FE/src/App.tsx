@@ -5,7 +5,7 @@ import Header from 'Header';
 import Footer from 'Footer';
 import Wizards from './pages/Wizards';
 import Tools from './pages/Tools';
-import Deployments from './pages/Deployments';
+import Deployments from './pages/Deployments/Deployments';
 import Guides from './pages/Guides';
 import Home from './pages/Home';
 import ERC20Generator from 'ERC20Generator';
