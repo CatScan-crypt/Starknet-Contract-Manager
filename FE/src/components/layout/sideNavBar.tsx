@@ -8,7 +8,7 @@ const navItems = [
 ];
 
 const wizardsNav = [
-  { label: 'Wizards', path: '/wizards', iconSrc: '/tools.svg' },
+  { label: 'Wizards', path: '/wizards', iconSrc: '/wiz.svg' },
   { label: 'ERC20', path: '/wizards/erc20', isSub: true, iconSrc: '/ERC20.svg' },
   { label: 'NFT', path: '/wizards/nft', isSub: true, iconSrc: '/NFT.svg' },
 ];

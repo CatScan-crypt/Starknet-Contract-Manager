@@ -11,7 +11,7 @@ export const aliases = {
     ConfiguredSummaryStep: path.resolve( 'src/components/erc20Generator/Configs/ConfiguredSummaryStep.tsx'),
     StepNavigation: path.resolve( 'src/components/erc20Generator/nav/StepNavigation.tsx'),
     AnimatedStepContent: path.resolve( 'src/components/erc20Generator/animation/AnimatedStepContent.tsx'),
-    animationVariants: path.resolve( 'src/components/erc20Generator/animation/animationVariants.tsx'),
+    animationVariants: path.resolve( 'src/animation/animationVariants.tsx'),
     navSteps: path.resolve( 'src/components/erc20Generator/constants/erc20Generator.constants.ts'),
     useERC20Form: path.resolve( 'src/components/erc20Generator/hooks/useERC20Form.ts'),
     useDexManagement: path.resolve( 'src/components/erc20Generator/hooks/useDexManagement.ts'),

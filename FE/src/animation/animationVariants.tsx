@@ -19,3 +19,20 @@ export const slideVariants: Variants = {
     transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
   }),
 };
+
+export const pageTransitionVariants: Variants = {
+  initial: {
+    x: '100vw',
+    opacity: 0,
+  },
+  animate: {
+    x: 0,
+    opacity: 1,
+    transition: { type: 'tween', ease: 'circOut', duration: 0.5 },
+  },
+  exit: {
+    x: '-100vw',
+    opacity: 0,
+    transition: { type: 'tween', ease: 'circIn', duration: 0.3 },
+  },
+};
