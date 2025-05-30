@@ -34,7 +34,7 @@
       "ConfiguredSummaryStep": ["src/components/erc20Generator/Configs/ConfiguredSummaryStep"],
       "StepNavigation": ["src/components/erc20Generator/nav/StepNavigation"],
       "AnimatedStepContent": ["src/components/erc20Generator/animation/AnimatedStepContent"],
-      "animationVariants": ["src/components/erc20Generator/animation/animationVariants"],
+      "animationVariants": ["src/animation/animationVariants"],
       "navSteps": ["src/components/erc20Generator/constants/erc20Generator.constants"],
       "useERC20Form": ["src/components/erc20Generator/hooks/useERC20Form"],
       "useDexManagement": ["src/components/erc20Generator/hooks/useDexManagement"],

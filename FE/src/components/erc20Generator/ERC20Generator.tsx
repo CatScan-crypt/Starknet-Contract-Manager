@@ -7,7 +7,8 @@ import { navSteps } from 'navSteps';
 import ConfiguredBasicPropertiesStep from 'ConfiguredBasicPropertiesStep'; 
 import StepNavigation from 'StepNavigation';
 import AnimatedStepContent from 'AnimatedStepContent';
-import { slideVariants } from 'animationVariants';
+import { motion } from 'framer-motion';
+import { slideVariants, pageTransitionVariants } from 'animationVariants'; // Adjusted import path
 
 interface ERC20GeneratorProps {}
 
@@ -56,7 +57,13 @@ const ERC20Generator: React.FC<ERC20GeneratorProps> = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mr-20">
+    <motion.div
+      variants={pageTransitionVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mr-20 w-full"
+    >
       <div className="flex flex-col md:flex-row md:space-x-8">
         <AnimatedStepContent
           currentStepKey={currentStep}
@@ -67,7 +74,7 @@ const ERC20Generator: React.FC<ERC20GeneratorProps> = () => {
         </AnimatedStepContent>
         <StepNavigation currentStep={currentStep} onNavClick={handleNavClick} />
       </div>
-    </div>
+    </motion.div>
   );
 };
 

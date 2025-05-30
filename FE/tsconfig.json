@@ -3,5 +3,23 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@pages/*": ["src/pages/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@utils/*": ["src/utils/*"],
+      "@animation/*": ["src/animation/*"],
+      "@layout/*": ["src/components/layout/*"],
+      "@erc20Generator/*": ["src/components/erc20Generator/*"],
+      "@erc20Generator/steps/*": ["src/components/erc20Generator/steps/*"],
+      "@erc20Generator/steps/basic/*": ["src/components/erc20Generator/steps/basic/*"],
+      "@erc20Generator/steps/protection/*": ["src/components/erc20Generator/steps/protection/*"],
+      "@erc20Generator/steps/rates/*": ["src/components/erc20Generator/steps/rates/*"],
+      "@erc20Generator/steps/summary/*": ["src/components/erc20Generator/steps/summary/*"],
+    }
+  }
 }
