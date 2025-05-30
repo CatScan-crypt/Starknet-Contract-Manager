@@ -27,6 +27,11 @@ const MethodNavigation: React.FC<MethodNavigationProps> = ({ currentMethod, onNa
                   }
                 `}
               >
+                <img
+                  src={method.icon}
+                  alt={`${method.label} icon`}
+                  className={`w-5 h-5 ${currentMethod === method.key ? 'brightness-200' : ''}`}
+                />
                 <span>{method.label}</span>
               </button>
             </li>
