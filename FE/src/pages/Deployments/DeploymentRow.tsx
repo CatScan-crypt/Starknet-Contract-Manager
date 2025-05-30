@@ -55,7 +55,7 @@ const DeploymentRow: React.FC<DeploymentRowProps> = ({ deployment }) => {
       </td>
       <td className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300 whitespace-nowrap">{deployment.tokenName}</td>
       <td className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300 whitespace-nowrap">{deployment.tokenSymbol}</td>
-      <td className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300 whitespace-nowrap text-right">
+      <td className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300 whitespace-nowrap">
         {typeof deployment.initialSupply === 'number' ? deployment.initialSupply.toLocaleString() : 'N/A'}
       </td>
       <td className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300 whitespace-nowrap">{deployment.chain}</td>
