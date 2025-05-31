@@ -7,7 +7,11 @@ const sendDocRoute = require('./routes/sendDocRoute');
 const statusRoute = require('./routes/statusRoute');
 const downloadRoute = require('./routes/downloadRoute');
 const uploadRoute = require('./routes/uploadRoute');
-
+const cors = require('cors');
+app.use(cors({
+  origin: 'http://localhost:5173', 
+  credentials: true, 
+}));
 app.use('/', rootRoute);
 app.use('/', sendDocRoute);
 app.use('/', statusRoute);
