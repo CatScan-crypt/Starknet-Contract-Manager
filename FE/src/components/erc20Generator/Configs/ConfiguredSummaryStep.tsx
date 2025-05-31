@@ -1,6 +1,6 @@
 import React from 'react';
-import { useERC20Form } from '../hooks/useERC20Form';
 import SummaryStep from '../Steps/Summary/SummaryStep';
+import { useERC20FormContext } from "../context/ERC20FormContext";
 
 const ConfiguredSummaryStep: React.FC = () => {
   const {
@@ -27,7 +27,7 @@ const ConfiguredSummaryStep: React.FC = () => {
     selectedDividendDEXs,
     dividendDistributionMode,
     dexPercentages,
-  } = useERC20Form();
+  } = useERC20FormContext();
 
   const handleGenerateCode = () => {
     let cairoCode = `this will be the cairo code builder in the future`;//DON'T TOUCH

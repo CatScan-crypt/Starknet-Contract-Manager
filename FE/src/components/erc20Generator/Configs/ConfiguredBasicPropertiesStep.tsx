@@ -1,7 +1,7 @@
 // src/components/erc20Generator/Steps/ConfiguredBasicPropertiesStep.tsx
 import React from 'react';
-import { useERC20Form } from 'useERC20Form'; // Adjust path if needed
 import BasicPropertiesStep from 'BasicPropertiesStep'; // The original component
+import { useERC20FormContext } from "../context/ERC20FormContext";
 
 const ConfiguredBasicPropertiesStep: React.FC = () => {
   const {
@@ -12,7 +12,7 @@ const ConfiguredBasicPropertiesStep: React.FC = () => {
     isMintable, setIsMintable,
     isBurnable, setIsBurnable,
     // Note: Only destructure what BasicPropertiesStep actually needs
-  } = useERC20Form();
+  } = useERC20FormContext();
 
   return (
     <BasicPropertiesStep

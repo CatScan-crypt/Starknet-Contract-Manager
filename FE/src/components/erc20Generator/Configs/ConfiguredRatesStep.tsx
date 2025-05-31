@@ -1,6 +1,6 @@
 import React from 'react';
-import { useERC20Form } from '../hooks/useERC20Form';
 import RatesStep from '../Steps/Rates/RatesStep';
+import { useERC20FormContext } from "../context/ERC20FormContext";
 
 const ConfiguredRatesStep: React.FC = () => {
   const {
@@ -9,7 +9,7 @@ const ConfiguredRatesStep: React.FC = () => {
     currentDEXSelection, setCurrentDEXSelection,
     dividendDistributionMode, setDividendDistributionMode,
     dexPercentages, setDexPercentages,
-  } = useERC20Form();
+  } = useERC20FormContext();
 
   return (
     <RatesStep

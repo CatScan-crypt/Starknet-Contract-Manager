@@ -2,7 +2,7 @@ import React from 'react';
 import ConfiguredProtectionStep from 'ConfiguredProtectionStep';
 import ConfiguredRatesStep from 'ConfiguredRatesStep';
 import ConfiguredSummaryStep from 'ConfiguredSummaryStep';
-import { useERC20Form } from 'useERC20Form';
+import { useERC20FormContext } from './context/ERC20FormContext';
 import { navSteps } from 'navSteps';
 import ConfiguredBasicPropertiesStep from 'ConfiguredBasicPropertiesStep'; 
 import StepNavigation from 'StepNavigation';
@@ -14,7 +14,7 @@ interface ERC20GeneratorProps {}
 
 const ERC20Generator: React.FC<ERC20GeneratorProps> = () => {
   const {
-  } = useERC20Form();
+  } = useERC20FormContext();
 
   const [currentStep, setCurrentStep] = React.useState('basic');
   const [animationDirection, setAnimationDirection] = React.useState(0); // 0: no direction, 1: down, -1: up

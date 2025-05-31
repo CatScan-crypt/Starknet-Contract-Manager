@@ -12,6 +12,7 @@ import ERC20Generator from 'ERC20Generator';
 import SideNavBar from './components/layout/sideNavBar';
 import Settings from './pages/Settings';
 import NFT from './pages/NFT';
+import { ERC20FormProvider } from "./components/erc20Generator/context/ERC20FormContext";
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -20,7 +21,9 @@ const AppRoutes = () => {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route path="/wizards" element={<Wizards />}>
-          <Route path="erc20" element={<ERC20Generator />} />
+          <Route path="erc20" element={<ERC20FormProvider>
+            <ERC20Generator />
+          </ERC20FormProvider>} />
           <Route path="nft" element={<NFT />} />
         </Route>
         <Route path="/tools" element={<Tools />} />
