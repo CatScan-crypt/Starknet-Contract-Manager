@@ -1,6 +1,6 @@
 import React from 'react';
-import { useERC20Form } from '../hooks/useERC20Form';
 import SummaryStep from '../Steps/Summary/SummaryStep';
+import { useERC20FormContext } from "../context/ERC20FormContext";
 
 const ConfiguredSummaryStep: React.FC = () => {
   const {
@@ -27,11 +27,28 @@ const ConfiguredSummaryStep: React.FC = () => {
     selectedDividendDEXs,
     dividendDistributionMode,
     dexPercentages,
-  } = useERC20Form();
+  } = useERC20FormContext();
 
   const handleGenerateCode = () => {
-    let cairoCode = `this will be the cairo code builder in the future`;//DON'T TOUCH
-    setGeneratedCode(cairoCode);
+    const requestId = Date.now().toString();
+    const userAddress = "01234561789"; // Replace with actual source if available
+  
+    const json = {
+      requestId,
+      userAddress,
+      properties: {
+        tokenName,
+        symbol,
+        totalSupply,
+        decimals,
+      },
+      methods: {
+        isMintable,
+        isBurnable
+      }
+    };
+  
+    setGeneratedCode(JSON.stringify(json, null, 2));
   };
 
   return (

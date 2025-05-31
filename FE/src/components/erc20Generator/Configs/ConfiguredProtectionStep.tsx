@@ -1,6 +1,6 @@
 import React from 'react';
-import { useERC20Form } from '../hooks/useERC20Form';
 import ProtectionStep from '../Steps/Protection/ProtectionStep';
+import { useERC20FormContext } from "../context/ERC20FormContext";
 
 const ConfiguredProtectionStep: React.FC = () => {
   const {
@@ -13,7 +13,7 @@ const ConfiguredProtectionStep: React.FC = () => {
     blacklistEnabled, setBlacklistEnabled,
     transferableOwnerEnabled, setTransferableOwnerEnabled,
     permitEnabled, setPermitEnabled,
-  } = useERC20Form();
+  } = useERC20FormContext();
 
   return (
     <ProtectionStep
