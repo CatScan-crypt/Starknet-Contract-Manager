@@ -3,36 +3,46 @@ const fs = require('fs');
 const path = require('path');
 const router = express.Router();
 
-// Route for the compiled JSON file
-router.get('/download/:requestId/compiled', (req, res) => {
+// Route to get all files from a job directory as JSON
+router.get('/download/:requestId', (req, res) => {
   const { requestId } = req.params;
-  const filePath = path.join(__dirname, "download",'jobs', requestId, `boilerplate_erc20.compiled_contract_class.json`);
+  const dirPath = path.join(__dirname, "download", 'jobs', requestId);
 
-  if (!fs.existsSync(filePath)) {
-    return res.status(404).json({ error: 'JSON file not found' });
+  // Check if directory exists
+  if (!fs.existsSync(dirPath)) {
+    return res.status(404).json({ error: 'Job directory not found' });
   }
 
-  res.download(filePath, `compiled.json`, (err) => {
-    if (err) {
-      res.status(500).json({ error: 'Error sending JSON file' });
-    }
-  });
-});
+  try {
+    // Read all files in the directory
+    const files = fs.readdirSync(dirPath);
+    const filesContent = {};
 
-// Route for the log file (example)
-router.get('/download/:requestId/abi', (req, res) => {
-  const { requestId } = req.params;
-  const filePath = path.join(__dirname, "download", 'jobs',requestId, `boilerplate_erc20.contract_class.json`);
+    // Read content of each file
+    files.forEach(file => {
+      const filePath = path.join(dirPath, file);
+      const content = fs.readFileSync(filePath, 'utf8');
+      try {
+        // Try to parse as JSON if possible
+        filesContent[file] = JSON.parse(content);
+      } catch {
+        // If not JSON, store as string
+        filesContent[file] = content;
+      }
+    });
 
-  if (!fs.existsSync(filePath)) {
-    return res.status(404).json({ error: 'Log file not found' });
+    // Send response as JSON
+    res.json({
+      requestId,
+      files: filesContent
+    });
+
+  } catch (error) {
+    res.status(500).json({ 
+      error: 'Error reading directory contents',
+      message: error.message 
+    });
   }
-
-  res.download(filePath, `abi.json`, (err) => {
-    if (err) {
-      res.status(500).json({ error: 'Error sending log file' });
-    }
-  });
 });
 
 module.exports = router;

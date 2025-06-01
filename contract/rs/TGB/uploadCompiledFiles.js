@@ -18,7 +18,7 @@ async function uploadCompiledFiles(targetDir, requestId) {
                 try {
                     const uploadUrl = 'http://localhost:3000/upload/' + requestId;
                     const response = await axios.post(uploadUrl, form, {
-                        headers: form.getHeaders(),
+                        headers: {},
                     });
                     console.log(`[User] Uploaded compiled file: ${file}`, response.data);
                 } catch (err) {
