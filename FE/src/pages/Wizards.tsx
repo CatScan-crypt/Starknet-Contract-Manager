@@ -8,7 +8,7 @@ const Wizards: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6 min-h-screen flex flex-col">
-      <h1 className="text-3xl font-bold mb-10 text-center text-gray-900">Wizards</h1>
+      <h1 className="text-3xl font-bold mb-10 text-center mr-50 text-gray-900">Wizards</h1>
       {/* Show buttons only on the main /wizards route */}
       {window.location.pathname === "/wizards" && (
         <div className="grid gap-8 md:grid-cols-2 justify-items-center mb-12">
@@ -43,5 +43,6 @@ const Wizards: React.FC = () => {
     </div>
   );
 };
+
 
 export default Wizards;

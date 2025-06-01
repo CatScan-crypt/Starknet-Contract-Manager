@@ -33,7 +33,6 @@ const AnimatedStepContent: React.FC<AnimatedStepContentProps> = ({
             <div className="min-h-[300px] ">
               {children}
             </div>
-            
           </div>
         </motion.div>
       </AnimatePresence>
