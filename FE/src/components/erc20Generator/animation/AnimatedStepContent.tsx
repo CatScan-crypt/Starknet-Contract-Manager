@@ -28,11 +28,12 @@ const AnimatedStepContent: React.FC<AnimatedStepContentProps> = ({
         >
           <div className=" bg-white rounded-lg shadow-lg border border-gray-200 p-6 md:p-8">
             <h2 className="text-2xl md:text-3xl font-semibold text-gray-700 text-center mb-6 md:mb-8 pb-4 border-b border-gray-200">
-              ERC20 Token Generator (StarkNet)
+              ERC20 Token Wizard
             </h2>
             <div className="min-h-[300px] ">
               {children}
             </div>
+            
           </div>
         </motion.div>
       </AnimatePresence>
