@@ -80,7 +80,7 @@ const canGoNext = currentIndex < navSteps.length - 1;
       initial="initial"
       animate="animate"
       exit="exit"
-      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mr-20 w-full"
+      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-6 py-8 mr-10 w-full"
     >
       <div className="flex flex-col md:flex-row md:space-x-8">
         <AnimatedStepContent
