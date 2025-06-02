@@ -1,0 +1,108 @@
+
+  {
+    "mint_class": {
+      "starknet_contract": {
+        "use": [
+          "openzeppelin::access::ownable::OwnableComponent;",
+          "starknet::get_caller_address;"
+        ],
+        "component": [
+          {
+            "path": "OwnableComponent",
+            "storage": "ownable",
+            "event": "OwnableEvent"
+          }
+        ]
+      },
+      "storage": [
+        {
+          "substorage": "v0",
+          "name": "ownable",
+          "component": "OwnableComponent::Storage"
+        }
+      ],
+      "event": [
+        {
+          "flat": "OwnableComponent::Event",
+          "name": "OwnableEvent"
+        }
+      ],
+      "abi": [
+        {
+          "embed_v0": "OwnableMixinImpl = OwnableComponent::OwnableMixinImpl<ContractState>",
+          "impl": "OwnableInternalImpl =OwnableComponent::InternalImpl<ContractState>"
+        }
+      ],
+      "generate_trait": {
+        "external_trait": "ExternalTrait",
+        "method": {
+          "name": "mint",
+          "external_v0": true,
+          "params": [
+            {
+                "ref self": "ContractState"
+            },
+            {
+              "recipient": "ContractAddress"
+            },
+            {
+              "amount": "u256"
+            }
+          ],
+          "body": "self.ownable.assert_only_owner();\nself.erc20.mint(recipient, amount);"
+        }
+      }
+    },
+    "burn_class": {
+      "starknet_contract": {
+        "use": [
+          "openzeppelin::access::ownable::OwnableComponent;",
+          "starknet::get_caller_address;"
+        ],
+        "component": [
+          {
+            "path": "OwnableComponent",
+            "storage": "ownable",
+            "event": "OwnableEvent"
+          }
+        ]
+      },
+      "storage": [
+        {
+          "substorage": "v0",
+          "name": "ownable",
+          "component": "OwnableComponent::Storage"
+        }
+      ],
+      "event": [
+        {
+          "flat": "OwnableComponent::Event",
+          "name": "OwnableEvent"
+        }
+      ],
+      "abi": [
+        {
+          "embed_v0": "OwnableMixinImpl = OwnableComponent::OwnableMixinImpl<ContractState>",
+          "impl": "OwnableInternalImpl =OwnableComponent::InternalImpl<ContractState>"
+        }
+      ],
+      "generate_trait": {
+        "external_trait": "ExternalTrait",
+        "method": {
+          "name": "burn",
+          "external_v0": true,
+          "params": [
+            {
+                "ref self": "ContractState"
+            },
+            {
+              "value": "u256"
+            }
+          ],
+          "body": "self.erc20.burn(get_caller_address(), value);"
+        }
+      }
+    }
+    
+  }
+   
